@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
+import 'package:get/get.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/splash_controller.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/primary_line.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
+  SplashScreen({super.key});
+
+  final splashController = Get.put(SplashController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: SafeArea(
         child: Center(
-            child: Text(
-          'اختبار التطبيق',
-          style: UITextStyle.title,
-        )),
+          child: Image.asset(
+            'assets/images/logo.png',
+            width: Get.width / 2,
+          ),
+        ),
       ),
+      bottomSheet: const PrimaryLine(),
     );
   }
 }
