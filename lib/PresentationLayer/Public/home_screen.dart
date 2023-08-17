@@ -1,6 +1,8 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/category_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/favourite_meal_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
@@ -83,6 +85,9 @@ class HomeScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return FavoutiteMealBox(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.mealScreen);
+                          },
                           mealImage: 'assets/images/fav${index + 1}.png',
                           mealName: favouriteMeals[index],
                           mealPrice: '10\$',
