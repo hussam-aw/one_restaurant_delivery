@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
+import 'package:one_restaurant_delivery/Constants/ui_styles.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 
 var darkTheme = ThemeData(
@@ -33,7 +34,21 @@ var darkTheme = ThemeData(
       borderSide: const BorderSide(color: UIColors.red),
     ),
     hintStyle: UITextStyle.small.copyWith(
-      color: UIColors.lightGray,
+      color: UIColors.white.withOpacity(0.2),
+    ),
+  ),
+  elevatedButtonTheme: const ElevatedButtonThemeData(
+    style: ButtonStyle(
+      elevation: MaterialStatePropertyAll(0),
+      backgroundColor: MaterialStatePropertyAll<Color>(UIColors.red),
+      shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: raduis22,
+        ),
+      ),
+      minimumSize: MaterialStatePropertyAll<Size>(
+        Size(double.infinity, 60),
+      ),
     ),
   ),
 );
