@@ -6,10 +6,16 @@ import 'package:one_restaurant_delivery/PresentationLayer/Public/home_screen.dar
 import 'package:one_restaurant_delivery/PresentationLayer/Public/splash_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/meal_screen.dart';
 
+import '../PresentationLayer/Public/meals.dart';
+
 List<GetPage<dynamic>> getPages = [
   GetPage(
     name: AppRoutes.splashScreen,
     page: () => SplashScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.Meals,
+    page: () => Meals(),
   ),
   GetPage(
     name: AppRoutes.homeScreen,
