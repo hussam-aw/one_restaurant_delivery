@@ -3,6 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 
+// ElevatedButton Styles
+const acceptButtonStyle = ButtonStyle(
+  elevation: MaterialStatePropertyAll(0),
+  backgroundColor: MaterialStatePropertyAll<Color>(UIColors.red),
+  shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+    RoundedRectangleBorder(
+      borderRadius: raduis22,
+    ),
+  ),
+  minimumSize: MaterialStatePropertyAll<Size>(
+    Size(double.infinity, 44),
+  ),
+);
+
 //Input Decoration
 final normalTextFieldStyle = InputDecoration(
   filled: true,
@@ -26,4 +40,10 @@ final normalTextFieldStyle = InputDecoration(
 );
 
 //Border Radius
+const raduis12 = BorderRadius.all(Radius.circular(12));
 const raduis20 = BorderRadius.all(Radius.circular(20));
+const raduis22 = BorderRadius.all(Radius.circular(22));
+const raduis54Bottom = BorderRadius.only(
+  bottomLeft: Radius.circular(54),
+  bottomRight: Radius.circular(54),
+);
