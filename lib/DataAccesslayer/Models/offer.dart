@@ -16,7 +16,7 @@ class Offer {
   factory Offer.fromMap(Map<String, dynamic> map) {
     return Offer(
         id: map['id'] as int,
-        mealId: map['meal_id'] ?? "",
+        mealId: map['meal'] ?? "",
         image: map['image'] ?? "",
         createdAt: map['created_at'] ?? "",
         );
@@ -24,7 +24,7 @@ class Offer {
 
     Map<String, dynamic> toMap() {
     return {
-      'meal_id': mealId,
+      'meal': mealId,
       'image': image,
     };
   }

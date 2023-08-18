@@ -14,6 +14,8 @@ import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/section
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_height.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_width.dart';
 
+import '../../BussinessLayer/Controllers/home_controller.dart';
+
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
@@ -26,6 +28,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        Get.put(HomeController());
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -45,60 +48,72 @@ class HomeScreen extends StatelessWidget {
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'أبرز العروض'),
                   spacerHeight(height: 20),
-                  const OrdSlider(
-                    widgets: [
-                      OrdImageContainer(
-                        imagePath: 'assets/images/co1.png',
-                      ),
-                      OrdImageContainer(
-                        imagePath: 'assets/images/co2.png',
-                      ),
-                      OrdImageContainer(
-                        imagePath: 'assets/images/co3.png',
-                      ),
-                    ],
-                  ),
+                   GetBuilder<HomeController>(
+                      builder: (controller) => controller.offers.isNotEmpty
+                          ? OrdSlider(
+                              widgets: [
+                                for (var i = 0;
+                                    i < controller.offers.length;
+                                    i++)
+                                  OrdImageContainer(
+                                    imagePath: controller.offers[i].image,
+                                  ),
+                              ],
+                            )
+                          : Container()),
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'التصنيفات'),
                   spacerHeight(height: 20),
                   SizedBox(
                     height: 100,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return CategoryBox(
-                          categoryImage: 'assets/images/cat${index + 1}.png',
-                          categoryName: categories[index],
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          spacerWidth(width: 25),
-                      itemCount: 4,
-                    ),
+                    child:  GetBuilder<HomeController>(
+                        builder: (controller) => ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: controller.categories.length,
+                              itemBuilder: (BuildContext context, index) {
+                                return InkWell(
+                                  child: CategoryBox(
+                                    categoryImage:
+                                        controller.categories[index].image,
+                                    categoryName:
+                                        controller.categories[index].name,
+                                  ),
+                                  onTap: () {
+                                    controller.getMeals(
+                                        controller.categories[index].id);
+                                  },
+                                );
+                              },
+                              separatorBuilder: (BuildContext context, index) =>
+                                  spacerWidth(width: 25),
+                            )),
                   ),
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'أبرز الوجبات'),
                   spacerHeight(height: 20),
                   SizedBox(
                     height: 200,
-                    child: ListView.separated(
+                    child:  GetBuilder<HomeController>(
+                        builder: (controller) =>ListView.separated(
                       scrollDirection: Axis.horizontal,
+                       itemCount: controller.meals.length,
                       itemBuilder: (context, index) {
                         return FavoutiteMealBox(
                           onTap: () {
                             Get.toNamed(AppRoutes.mealScreen);
                           },
-                          mealImage: 'assets/images/fav${index + 1}.png',
-                          mealName: favouriteMeals[index],
-                          mealPrice: '10\$',
+                        mealImage: controller.meals[index].image,
+                                  mealName: controller.meals[index].name,
+                                  mealPrice:
+                                      controller.meals[index].price.toString(),
                         );
                       },
                       separatorBuilder: (context, index) =>
                           spacerWidth(width: 25),
-                      itemCount: 3,
+                    
                     ),
                   ),
-                ],
+              )],
               ),
             ),
           ),

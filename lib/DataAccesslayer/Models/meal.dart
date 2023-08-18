@@ -5,7 +5,7 @@ class Meal {
   final String name;
   final String image;
   final int categoryId;
-  final double price;
+  final num price;
   final String components;
   final int newSign;
   final int featured;

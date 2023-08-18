@@ -21,7 +21,7 @@ class OrdImageContainer extends StatelessWidget {
         color: backgroundColor,
         borderRadius: borderRadius,
         image: DecorationImage(
-          image: AssetImage(imagePath),
+          image: NetworkImage(imagePath),
           fit: BoxFit.cover,
         ),
       ),

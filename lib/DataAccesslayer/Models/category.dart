@@ -4,14 +4,12 @@ class Category {
   final int id;
   final String name;
   final String image;
-  final int parentId;
   final String createdAt;
  
   Category({
     required this.id,
     required this.name,
     required this.image,
-    required this.parentId,
     required this.createdAt,
   });
 
@@ -20,7 +18,6 @@ class Category {
         id: map['id'] as int,
         name: map['name'] ?? "",
         image: map['image'] ?? "",
-        parentId: map['parent_id'] ?? "",
         createdAt: map['created_at'] ?? "",
         );
   }
@@ -29,7 +26,6 @@ class Category {
     return {
       'name': name,
       'image': image,
-      'parent_id': parentId,
     };
   }
 
