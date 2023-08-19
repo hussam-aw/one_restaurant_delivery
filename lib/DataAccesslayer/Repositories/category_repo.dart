@@ -6,8 +6,6 @@ class CategoryRepo {
 
   CategoryClient client = CategoryClient();
 
-  Category? category;
-
 
   Future<List<Category>> getCategories() async {
     var response = await client.getCategories();

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_drawer.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/meals/categories.dart';
 
 import '../../BussinessLayer/Controllers/home_controller.dart';
@@ -11,13 +13,16 @@ class Meals extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-            appBar: AppBar(),
+            appBar: ordAppBar(),
+            drawer: const OrdDrawer(),
             body: Container(
                 padding: const EdgeInsets.all(6),
                 child: GetBuilder<HomeController>(
+                   
                   builder: (controller) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -31,15 +36,16 @@ class Meals extends StatelessWidget {
                       SizedBox(
                         height: 50,
                         child: ListView.builder(
+                          
                           itemCount: controller.categories.length ,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
-                           
+                          
                             return InkWell(
                               child: index == 0
                                   ? Categories(
                                       name: "الكل",
-                                      color: controller.current == 'all'
+                                      color: controller.current == 0
                                           ? UIColors.red
                                           : UIColors.darkDeepBlue)
                                   : Categories(
@@ -55,6 +61,7 @@ class Meals extends StatelessWidget {
                                         controller.categories[index].id);
                               },
                             );
+                              
                           },
                         ),
                       ),

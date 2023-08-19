@@ -9,6 +9,8 @@ import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_app
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/page_title.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_height.dart';
 
+import '../Widgets/Public/ord_drawer.dart';
+
 class ShoppingCartScreen extends StatelessWidget {
   const ShoppingCartScreen({super.key});
 
@@ -19,6 +21,7 @@ class ShoppingCartScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: ordAppBar(),
+          drawer: const OrdDrawer(),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: Column(

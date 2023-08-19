@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_styles.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
@@ -54,11 +55,11 @@ class MealScreen extends StatelessWidget {
                           onPressed: () {},
                         ),
                       ),
-                      flexibleSpace: const FlexibleSpaceBar(
+                      flexibleSpace:  FlexibleSpaceBar(
                         background: OrdImageContainer(
                           backgroundColor: UIColors.darkDeepBlue,
                           borderRadius: raduis54Bottom,
-                          imagePath: 'assets/images/meal1.png',
+                          imagePath:  Get.arguments.image,
                         ),
                       ),
                     ),
@@ -70,13 +71,13 @@ class MealScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               spacerHeight(height: 22),
-                              const Padding(
+                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 20),
                                 child: Row(
                                   children: [
                                     Flexible(
                                       child: Text(
-                                        'وجبة كريسبي مع المقبلات',
+                                     Get.arguments.name.toString(),
                                         style: UITextStyle.heading,
                                       ),
                                     ),
@@ -86,7 +87,7 @@ class MealScreen extends StatelessWidget {
                                         child: AmountBox(
                                           width: 90,
                                           height: 45,
-                                          amount: '10\$',
+                                          amount:  Get.arguments.price.toString(),
                                         ),
                                       ),
                                     ),
@@ -135,7 +136,7 @@ class MealScreen extends StatelessWidget {
                               spacerHeight(height: 22),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+                                     EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -145,17 +146,19 @@ class MealScreen extends StatelessWidget {
                                       title: 'مكونات الوجبة',
                                     ),
                                     spacerHeight(),
-                                    RichText(
-                                      text: TextSpan(
-                                        style: UITextStyle.xsmall,
-                                        children: mealContents
-                                            .map(
-                                              (content) =>
-                                                  TextSpan(text: ' - $content'),
-                                            )
-                                            .toList(),
-                                      ),
-                                    ),
+                                    Text(  Get.arguments.components.toString()),
+                                   // RichText(
+                                     
+                                      // text: TextSpan(
+                                      //   style: UITextStyle.xsmall,
+                                      //   children: mealContents
+                                      //       .map(
+                                      //         (content) =>
+                                      //             TextSpan(text: ' - $content'),
+                                      //       )
+                                      //       .toList(),
+                                      // ),
+                                  //  ),
                                     spacerHeight(height: 22),
                                     SectionTitle(
                                       titleColor:

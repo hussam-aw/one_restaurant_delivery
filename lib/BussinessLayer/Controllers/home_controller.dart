@@ -47,14 +47,13 @@ class HomeController extends GetxController {
     if (mealsByCategory.isEmpty) {
       mealsByCategory = meals;
       update();
-      print(meals);
-      print(mealsByCategory);
     }
     if (categoryId == 0) {
       mealsByCategory = meals;
       current = 0;
       update();
     }
+
     Get.toNamed(AppRoutes.Meals);
   }
 }
