@@ -85,8 +85,8 @@ class HomeScreen extends StatelessWidget {
                                         controller.categories[index].name,
                                   ),
                                   onTap: () {
-                                    controller.getMeals(
-                                        controller.categories[index].id);
+                                      Get.toNamed(AppRoutes.Meals , arguments: controller.categories[index].id);
+                                  
                                   },
                                 );
                               },

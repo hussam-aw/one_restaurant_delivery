@@ -82,7 +82,7 @@ class OrdDrawer extends StatelessWidget {
               style: UITextStyle.medium,
             ),
             onTap: () {
-              Get.toNamed(AppRoutes.Meals);
+               Get.toNamed(AppRoutes.Meals , arguments: 0);
             },
           ),
           ListTile(
@@ -109,6 +109,19 @@ class OrdDrawer extends StatelessWidget {
             ),
             onTap: () {
               Get.toNamed(AppRoutes.ordersScreen);
+            },
+          ),
+           ListTile(
+            leading: const Icon(
+              FontAwesomeIcons.heart,
+              color: Colors.white,
+            ),
+            title: const Text(
+              "المفضلة",
+              style: UITextStyle.medium,
+            ),
+            onTap: () {
+              Get.toNamed(AppRoutes.favorites);
             },
           ),
         ],

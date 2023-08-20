@@ -5,3 +5,7 @@ const categories = "categories";
 const featuredMeals = "featuredMeals";
 
 const offers = "offers";
+
+const mealsByIds = "mealsByIds";
+
+const meals = "meals";

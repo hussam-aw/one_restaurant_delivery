@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:one_restaurant_delivery/BussinessLayer/Controllers/favorites_controller.dart';
-import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
-import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_drawer.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/meals/categories.dart';
 
-import '../../BussinessLayer/Controllers/home_controller.dart';
-import '../../BussinessLayer/Controllers/meals_controller.dart';
+import '../../BussinessLayer/Controllers/favorites_controller.dart';
+import '../../Constants/ui_colors.dart';
+import '../../Constants/ui_text_styles.dart';
+import '../Widgets/Public/ord_appbar.dart';
+import '../Widgets/Public/ord_drawer.dart';
 
-class Meals extends StatelessWidget {
-  const Meals({super.key});
+class FavoritesScreen extends StatelessWidget {
+  const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    FavoritesController favoritesController = Get.put(FavoritesController());
-    Get.put(MealsController());
+    Get.put(FavoritesController());
     return Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
@@ -24,51 +20,22 @@ class Meals extends StatelessWidget {
             appBar: ordAppBar(),
             drawer: const OrdDrawer(),
             body: Container(
-                padding: const EdgeInsets.all(6),
-                child: GetBuilder<MealsController>(
+                padding: EdgeInsets.all(6),
+                child: GetBuilder<FavoritesController>(
                   builder: (controller) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
                         margin: const EdgeInsets.all(10),
                         child: const Text(
-                          'لائحة الوجبات',
+                          'المفضلة',
                           style: UITextStyle.title,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                        child: ListView.builder(
-                          itemCount: controller.categories.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (BuildContext context, int index) {
-                            return InkWell(
-                              child: index == 0
-                                  ? Categories(
-                                      name: "الكل",
-                                      color: controller.current == 0
-                                          ? UIColors.red
-                                          : UIColors.darkDeepBlue)
-                                  : Categories(
-                                      name: controller.categories[index].name,
-                                      color: controller.categories[index].id ==
-                                              controller.current
-                                          ? UIColors.red
-                                          : UIColors.darkDeepBlue),
-                              onTap: () {
-                                index == 0
-                                    ? controller.getMeals(0)
-                                    : controller.getMeals(
-                                        controller.categories[index].id);
-                              },
-                            );
-                          },
                         ),
                       ),
                       Expanded(
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: controller.mealsByCategory.length,
+                          itemCount: controller.mealsFavorite.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
                               height: 90,
@@ -92,7 +59,7 @@ class Meals extends StatelessWidget {
                                       child: SizedBox.fromSize(
                                           child: Image.network(
                                               controller
-                                                  .mealsByCategory[index].image,
+                                                  .mealsFavorite[index].image,
                                               width: 80.0,
                                               height: 70,
                                               fit: BoxFit.fill)),
@@ -108,13 +75,13 @@ class Meals extends StatelessWidget {
                                         children: [
                                           Text(
                                               controller
-                                                  .mealsByCategory[index].name,
+                                                  .mealsFavorite[index].name,
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               softWrap: true,
                                               style: UITextStyle.small),
                                           Text(controller
-                                              .mealsByCategory[index].price
+                                              .mealsFavorite[index].price
                                               .toString()),
                                         ],
                                       )),
@@ -128,9 +95,9 @@ class Meals extends StatelessWidget {
                                       ),
                                       SizedBox(width: 10),
                                       InkWell(
-                                        child: favoritesController.favorites
-                                                .contains(controller
-                                                    .mealsByCategory[index].id)
+                                        child: controller.favorites.contains(
+                                                controller
+                                                    .mealsFavorite[index].id)
                                             ? const Icon(
                                                 Icons.favorite,
                                                 size: 25,
@@ -140,18 +107,15 @@ class Meals extends StatelessWidget {
                                                 size: 25,
                                               ),
                                         onTap: () {
-                                          favoritesController.favorites
-                                                  .contains(controller
-                                                      .mealsByCategory[index]
-                                                      .id)
-                                              ? favoritesController
-                                                  .removeFavorite(controller
-                                                      .mealsByCategory[index]
-                                                      .id)
-                                              : favoritesController.addFavorite(
+                                          controller.favorites.contains(
                                                   controller
-                                                      .mealsByCategory[index]
-                                                      .id);
+                                                      .mealsFavorite[index].id)
+                                              ? controller.removeFavorite(
+                                                  controller
+                                                      .mealsFavorite[index].id)
+                                              : controller.addFavorite(
+                                                  controller
+                                                      .mealsFavorite[index].id);
                                         },
                                       )
                                     ],

@@ -19,10 +19,10 @@ class HomeController extends GetxController {
   List<Meal> meals = [];
   List<Meal> mealsByCategory = [];
 
-  late int current = 0;
 
   @override
   onInit() async {
+
     categories = await categoryRepo.getCategories();
 
     offers = await offerRepo.getOffers();
@@ -34,26 +34,5 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  getMeals(categoryId) async {
-    current = categoryId;
 
-    mealsByCategory = meals
-        .where((element) => element.categoryId.isEqual(categoryId))
-        .toList();
-
-    if (mealsByCategory.isNotEmpty) {
-      update();
-    }
-    if (mealsByCategory.isEmpty) {
-      mealsByCategory = meals;
-      update();
-    }
-    if (categoryId == 0) {
-      mealsByCategory = meals;
-      current = 0;
-      update();
-    }
-
-    Get.toNamed(AppRoutes.Meals);
-  }
 }
