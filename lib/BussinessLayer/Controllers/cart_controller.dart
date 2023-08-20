@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Clients/box_client.dart';
@@ -6,6 +7,7 @@ import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/snackbars.dart';
 
 class CartController extends GetxController {
+  TextEditingController specialOrderController = TextEditingController();
   List<CartItem> cartItems = [];
   int itemQty = 1;
   BoxClient boxClient = BoxClient();
@@ -24,8 +26,10 @@ class CartController extends GetxController {
   Future<void> addToCart(Meal meal, String specialOrder) async {
     var cartItemIndex = getCartItemIndex(meal.id);
     if (cartItemIndex == null) {
-      var cartItem =
-          CartItem(mealId: meal.id, qty: itemQty, specialOrder: specialOrder);
+      var cartItem = CartItem(
+          mealId: meal.id,
+          qty: itemQty,
+          specialOrder: specialOrderController.text);
       adding.value = true;
       cartItems.add(cartItem);
       await syncCart();
@@ -47,45 +51,16 @@ class CartController extends GetxController {
     return null;
   }
 
-  int getCartItemQty(mealId) {
-    for (var index = 0; index < cartItems.length; index++) {
-      if (cartItems[index].mealId == mealId) {
-        return cartItems[index].qty;
-      }
-    }
-    return itemQty;
-  }
-
   Future<void> increaseCartItemQty(mealId) async {
-    var index = getCartItemIndex(mealId);
-    if (index != null) {
-      cartItems[index].qty++;
-    } else {
-      itemQty++;
-    }
-    await syncCart();
-    calc();
+    itemQty++;
     update();
   }
 
   Future<void> decreaseCartItemQty(mealId) async {
-    var index = getCartItemIndex(mealId);
-    if (index != null && cartItems[index].qty > 0) {
-      cartItems[index].qty--;
-      if (cartItems[index].qty == 0) {
-        removeCartItem(index);
-        SnackBars.showSuccess('تمت ازالة الوحبة من السلة');
-      }
-    } else if (itemQty > 1) {
+    if (itemQty > 1) {
       itemQty--;
     }
-    await syncCart();
-    calc();
     update();
-  }
-
-  Future<void> removeCartItem(index) async {
-    cartItems.removeAt(index);
   }
 
   Future<void> syncCart() async {
