@@ -119,9 +119,8 @@ class MealScreen extends StatelessWidget {
                                             color: UIColors.veryDarkGray),
                                         shape: BoxShape.circle,
                                         textStyle: UITextStyle.title,
-                                        amount: cartController
-                                            .getCartItemQty(meal!.id)
-                                            .toString(),
+                                        amount:
+                                            cartController.itemQty.toString(),
                                       );
                                     }),
                                     spacerWidth(width: 30),
@@ -173,7 +172,8 @@ class MealScreen extends StatelessWidget {
                                     ),
                                     spacerHeight(),
                                     OrdTextFormField(
-                                      controller: TextEditingController(),
+                                      controller:
+                                          cartController.specialOrderController,
                                       maxLines: 3,
                                       textAlign: TextAlign.right,
                                       hintText: 'اكتب طلباً مخصصاً للشيف',
