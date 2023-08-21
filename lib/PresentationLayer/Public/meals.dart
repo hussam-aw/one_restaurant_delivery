@@ -11,7 +11,9 @@ import '../../BussinessLayer/Controllers/home_controller.dart';
 import '../../BussinessLayer/Controllers/meals_controller.dart';
 
 class Meals extends StatelessWidget {
-  const Meals({super.key});
+  Meals({super.key});
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +27,7 @@ class Meals extends StatelessWidget {
             drawer: const OrdDrawer(),
             body: Container(
                 padding: const EdgeInsets.all(6),
+                
                 child: GetBuilder<MealsController>(
                   builder: (controller) => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,6 +43,7 @@ class Meals extends StatelessWidget {
                         height: 50,
                         child: ListView.builder(
                           itemCount: controller.categories.length,
+                         
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
@@ -50,16 +54,19 @@ class Meals extends StatelessWidget {
                                           ? UIColors.red
                                           : UIColors.darkDeepBlue)
                                   : Categories(
-                                      name: controller.categories[index].name,
-                                      color: controller.categories[index].id ==
+                                      name: controller
+                                          .categories[index].name,
+                                      color: controller
+                                                  .categories[index].id ==
                                               controller.current
                                           ? UIColors.red
                                           : UIColors.darkDeepBlue),
                               onTap: () {
                                 index == 0
-                                    ? controller.getMeals(0)
-                                    : controller.getMeals(
-                                        controller.categories[index].id);
+                                    ? controller.getMealsByCategory(0)
+                                    : controller.getMealsByCategory(
+                                        controller
+                                            .categories[index].id);
                               },
                             );
                           },

@@ -1,12 +1,11 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:one_restaurant_delivery/Constants/get_pages.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
-import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
-import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/category_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/favourite_meal_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
@@ -24,12 +23,10 @@ import '../../BussinessLayer/Controllers/home_controller.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  var categories = ['غربي', 'شاورما', 'فلافل', 'كبة'];
-  var favouriteMeals = [
-    'وجبة كريسبي مع مقبلات',
-    'وجبة فطاير شامية منوعة',
-    'وجبة فطاير شامية منوعة'
-  ];
+  // final homeController = Get.put(HomeController());
+  // final offersController = Get.find<OffersController>();
+  // final categoriesController = Get.find<CategoriesController>();
+  // final mealsController = Get.find<MealsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +36,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: ordAppBar(),
-        drawer:  OrdDrawer(),
+        drawer: const OrdDrawer(),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -85,8 +82,8 @@ class HomeScreen extends StatelessWidget {
                                         controller.categories[index].name,
                                   ),
                                   onTap: () {
-                                      Get.toNamed(AppRoutes.Meals , arguments: controller.categories[index].id);
-                                  
+                                    Get.toNamed(AppRoutes.Meals,
+                                  arguments: controller.categories[index].id);
                                   },
                                 );
                               },
@@ -106,11 +103,13 @@ class HomeScreen extends StatelessWidget {
                         itemBuilder: (context, index) {
                           return FavoutiteMealBox(
                             onTap: () {
-                              Get.toNamed(AppRoutes.mealScreen , arguments: controller.meals[index]);
+                              Get.toNamed(AppRoutes.mealScreen,
+                                  arguments: controller.meals[index]);
                             },
                             mealImage: controller.meals[index].image,
                             mealName: controller.meals[index].name,
-                            mealPrice: controller.meals[index].price.toString(),
+                            mealPrice: controller.meals[index].price
+                                .toString(),
                           );
                         },
                         separatorBuilder: (context, index) =>

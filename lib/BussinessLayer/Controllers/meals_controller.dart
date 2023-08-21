@@ -1,65 +1,47 @@
 import 'package:get/get.dart';
-import 'package:one_restaurant_delivery/Constants/get_pages.dart';
+import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
-import 'package:one_restaurant_delivery/DataAccesslayer/Models/offer.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Repositories/meal_repo.dart';
 
-import '../../Constants/get_routes.dart';
 import '../../DataAccesslayer/Models/Category.dart';
 import '../../DataAccesslayer/Repositories/category_repo.dart';
-import '../../DataAccesslayer/Repositories/meal_repo.dart';
 
 class MealsController extends GetxController {
-
-  CategoryRepo categoryRepo = CategoryRepo();
   MealRepo mealRepo = MealRepo();
+  CategoryRepo categoryRepo = CategoryRepo();
 
-
-  List<Category> categories = [];
- 
   List<Meal> meals = [];
   List<Meal> mealsByCategory = [];
+  List<Category> categories = [];
 
   late int current = 0;
-  late int categoryId = 0;
+
+  late int categoryId = Get.arguments;
 
   @override
   onInit() async {
-
-    categoryId = Get.arguments;
-    print(categoryId);
-
-  categories = await categoryRepo.getCategories();
+    categories = await categoryRepo.getCategories();
 
     meals = await mealRepo.getMeals();
-
+       current = categoryId;
+    if (categoryId != 0) {
       mealsByCategory = meals
-        .where((element) => element.categoryId.isEqual(categoryId))
-        .toList();
-
- current = categoryId;
-
- if (categoryId == 0) {
+          .where((element) => element.categoryId.isEqual(categoryId))
+          .toList();
+    } else {
       mealsByCategory = meals;
-    
-      update();
     }
+
     update();
 
     super.onInit();
   }
 
-  getUpdate()
-  {
-     update();
-  }
-
-  getMeals(categoryId) async {
+  getMealsByCategory(categoryId) async {
     current = categoryId;
-
     mealsByCategory = meals
         .where((element) => element.categoryId.isEqual(categoryId))
         .toList();
-
     if (mealsByCategory.isNotEmpty) {
       update();
     }
@@ -72,7 +54,23 @@ class MealsController extends GetxController {
       current = 0;
       update();
     }
+    update();
+  }
 
-    Get.toNamed(AppRoutes.Meals);
+  // Future<void> getFeaturedMeals() async {
+  //   featuredMeals = await mealRepo.getFeaturedMeals();
+  //   update();
+  // }
+
+  Meal? getMealFromId(mealId) {
+    var meal = meals.firstWhereOrNull((meal) => meal.id == mealId);
+    if (meal != null) {
+      return meal;
+    }
+    return null;
+  }
+
+  getUpdate() {
+    update();
   }
 }

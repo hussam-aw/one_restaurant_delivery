@@ -1,28 +1,36 @@
 import 'package:get/get.dart';
-import 'package:one_restaurant_delivery/Constants/get_pages.dart';
-import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/cart_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/offer.dart';
 
-import '../../Constants/get_routes.dart';
+import '../../Constants/api_links.dart';
 import '../../DataAccesslayer/Models/Category.dart';
+import '../../DataAccesslayer/Models/meal.dart';
 import '../../DataAccesslayer/Repositories/category_repo.dart';
 import '../../DataAccesslayer/Repositories/meal_repo.dart';
 import '../../DataAccesslayer/Repositories/offer_repo.dart';
 
 class HomeController extends GetxController {
-  CategoryRepo categoryRepo = CategoryRepo();
+
+  // var offersController = Get.put(OffersController());
+  // var categoriesController = Get.put(CategoriesController());
+  // var mealsController = Get.put(MealsController());
+  // final cartController = Get.put(CartController());
+
   MealRepo mealRepo = MealRepo();
+  CategoryRepo categoryRepo = CategoryRepo();
   OfferRepo offerRepo = OfferRepo();
 
-  List<Category> categories = [];
-  List<Offer> offers = [];
   List<Meal> meals = [];
-  List<Meal> mealsByCategory = [];
+  List<Offer> offers = [];
+  List<Category> categories = [];
 
 
   @override
   onInit() async {
-
+    
     categories = await categoryRepo.getCategories();
 
     offers = await offerRepo.getOffers();
@@ -34,5 +42,15 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  // void fetchHomeData() async {
+  //   await offersController.getOffers();
+  //   await categoriesController.getCategories();
+  //   await mealsController.getFeaturedMeals();
+  //   await mealsController.getMeals();
+  //   await cartController.getCartItems();
+  // }
 
+
+
+ 
 }
