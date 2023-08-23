@@ -52,9 +52,11 @@ class HomeScreen extends StatelessWidget {
                       builder: (controller) => controller.offers.isNotEmpty
                           ? OrdSlider(
                               widgets: [
+                                
                                 for (var i = 0;
                                     i < controller.offers.length;
                                     i++)
+                                    
                                   OrdImageContainer(
                                     imagePath: controller.offers[i].image,
                                   ),
