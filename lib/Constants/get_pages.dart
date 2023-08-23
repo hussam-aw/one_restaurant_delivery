@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Private/favorites_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/orders_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/shopping_cart_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/home_screen.dart';
@@ -32,5 +33,9 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: AppRoutes.ordersScreen,
     page: () => OrdersScreen(),
+  ),
+   GetPage(
+    name: AppRoutes.favorites,
+    page: () => const FavoritesScreen(),
   ),
 ];

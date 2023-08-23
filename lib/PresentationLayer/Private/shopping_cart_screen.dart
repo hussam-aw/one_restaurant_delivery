@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/cart_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_item_box.dart';
@@ -9,8 +12,13 @@ import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_app
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/page_title.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_height.dart';
 
+import '../Widgets/Public/ord_drawer.dart';
+
 class ShoppingCartScreen extends StatelessWidget {
-  const ShoppingCartScreen({super.key});
+  ShoppingCartScreen({super.key});
+
+  final cartController = Get.put(CartController());
+  final mealsController = Get.find<MealsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +27,7 @@ class ShoppingCartScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: ordAppBar(),
+        drawer: const OrdDrawer(),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
           child: Column(
@@ -36,10 +45,14 @@ class ShoppingCartScreen extends StatelessWidget {
                         flex: 3,
                         child: ListView.separated(
                           itemBuilder: (context, index) {
-                            return CartItemBox();
+                            return CartItemBox(
+                              cartItem: cartController.cartItems[index],
+                              meal: mealsController.getMealFromId(
+                                  cartController.cartItems[index].mealId)!,
+                            );
                           },
                           separatorBuilder: (context, index) => spacerHeight(),
-                          itemCount: 5,
+                          itemCount: cartController.cartItems.length,
                         ),
                       ),
                     ],
@@ -53,18 +66,18 @@ class ShoppingCartScreen extends StatelessWidget {
                   items: [
                     CartSummaryItem(
                       itemTitle: 'الإجمالي',
-                      itemAmount: '150\$',
+                      itemAmount: '${cartController.totalAmount}\$',
                     ),
                     CartSummaryItem(
                       itemTitle: 'الحسم',
-                      itemAmount: '10\$',
+                      itemAmount: '${cartController.discountAmount}\$',
                       amountTextStyle: UITextStyle.medium.copyWith(
                         color: UIColors.white.withOpacity(0.5),
                       ),
                     ),
                     CartSummaryItem(
                       itemTitle: 'الصافي',
-                      itemAmount: '140\$',
+                      itemAmount: '${cartController.netAmount}\$',
                     )
                   ],
                 ),

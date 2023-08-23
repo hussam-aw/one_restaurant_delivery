@@ -2,11 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/category_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/favourite_meal_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_bottom_navigation_bar.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_drawer.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_image_container.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_slider.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_text_form_field.dart';
@@ -19,21 +23,20 @@ import '../../BussinessLayer/Controllers/home_controller.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  var categories = ['غربي', 'شاورما', 'فلافل', 'كبة'];
-  var favouriteMeals = [
-    'وجبة كريسبي مع مقبلات',
-    'وجبة فطاير شامية منوعة',
-    'وجبة فطاير شامية منوعة'
-  ];
+  // final homeController = Get.put(HomeController());
+  // final offersController = Get.find<OffersController>();
+  // final categoriesController = Get.find<CategoriesController>();
+  // final mealsController = Get.find<MealsController>();
 
   @override
   Widget build(BuildContext context) {
-        Get.put(HomeController());
+    Get.put(HomeController());
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: ordAppBar(),
+        drawer: const OrdDrawer(),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
@@ -48,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'أبرز العروض'),
                   spacerHeight(height: 20),
-                   GetBuilder<HomeController>(
+                  GetBuilder<HomeController>(
                       builder: (controller) => controller.offers.isNotEmpty
                           ? OrdSlider(
                               widgets: [
@@ -68,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                   spacerHeight(height: 20),
                   SizedBox(
                     height: 100,
-                    child:  GetBuilder<HomeController>(
+                    child: GetBuilder<HomeController>(
                         builder: (controller) => ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemCount: controller.categories.length,
@@ -81,8 +84,8 @@ class HomeScreen extends StatelessWidget {
                                         controller.categories[index].name,
                                   ),
                                   onTap: () {
-                                    controller.getMeals(
-                                        controller.categories[index].id);
+                                    Get.toNamed(AppRoutes.Meals,
+                                  arguments: controller.categories[index].id);
                                   },
                                 );
                               },
@@ -95,27 +98,28 @@ class HomeScreen extends StatelessWidget {
                   spacerHeight(height: 20),
                   SizedBox(
                     height: 200,
-                    child:  GetBuilder<HomeController>(
-                        builder: (controller) =>ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                       itemCount: controller.meals.length,
-                      itemBuilder: (context, index) {
-                        return FavoutiteMealBox(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.mealScreen);
-                          },
-                        mealImage: controller.meals[index].image,
-                                  mealName: controller.meals[index].name,
-                                  mealPrice:
-                                      controller.meals[index].price.toString(),
-                        );
-                      },
-                      separatorBuilder: (context, index) =>
-                          spacerWidth(width: 25),
-                    
+                    child: GetBuilder<HomeController>(
+                      builder: (controller) => ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: controller.meals.length,
+                        itemBuilder: (context, index) {
+                          return FavoutiteMealBox(
+                            onTap: () {
+                              Get.toNamed(AppRoutes.mealScreen,
+                                  arguments: controller.meals[index]);
+                            },
+                            mealImage: controller.meals[index].image,
+                            mealName: controller.meals[index].name,
+                            mealPrice: controller.meals[index].price
+                                .toString(),
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            spacerWidth(width: 25),
+                      ),
                     ),
-                  ),
-              )],
+                  )
+                ],
               ),
             ),
           ),

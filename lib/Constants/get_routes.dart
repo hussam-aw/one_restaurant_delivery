@@ -5,4 +5,5 @@ class AppRoutes {
   static const mealScreen = "/mealScreen";
   static const shoppingCartScreen = "/shoppingCartScreen";
   static const ordersScreen = "/ordersScreen";
+  static const favorites = "/favorites";
 }
