@@ -35,7 +35,7 @@ final normalTextFieldStyle = InputDecoration(
     borderRadius: BorderRadius.circular(17),
   ),
   hintStyle: UITextStyle.small.copyWith(
-    color: UIColors.lightGray,
+    color: UIColors.lightGrey,
   ),
 );
 
@@ -43,6 +43,10 @@ final normalTextFieldStyle = InputDecoration(
 const raduis12 = BorderRadius.all(Radius.circular(12));
 const raduis20 = BorderRadius.all(Radius.circular(20));
 const raduis22 = BorderRadius.all(Radius.circular(22));
+const raduis32Top = BorderRadius.only(
+  topLeft: Radius.circular(32),
+  topRight: Radius.circular(32),
+);
 const raduis54Bottom = BorderRadius.only(
   bottomLeft: Radius.circular(54),
   bottomRight: Radius.circular(54),
