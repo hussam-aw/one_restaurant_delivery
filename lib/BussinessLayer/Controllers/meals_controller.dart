@@ -1,66 +1,36 @@
 import 'package:get/get.dart';
-import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Repositories/meal_repo.dart';
-
-import '../../DataAccesslayer/Models/Category.dart';
 import '../../DataAccesslayer/Repositories/category_repo.dart';
 
 class MealsController extends GetxController {
   MealRepo mealRepo = MealRepo();
   CategoryRepo categoryRepo = CategoryRepo();
+  var isLoadingMeals = true.obs;
+  var isLoadingFeaturedMeals = false.obs;
 
   List<Meal> meals = [];
   List<Meal> mealsByCategory = [];
-  List<Category> categories = [];
+  List<Meal> featuredMeals = [];
 
-  late int current = 0;
-
-  late int categoryId = Get.arguments;
-
-  @override
-  onInit() async {
-    categories = await categoryRepo.getCategories();
-
+  Future<void> getMeals() async {
+    isLoadingMeals.value = true;
     meals = await mealRepo.getMeals();
-       current = categoryId;
-    if (categoryId != 0) {
-      mealsByCategory = meals
-          .where((element) => element.categoryId.isEqual(categoryId))
-          .toList();
-    } else {
-      mealsByCategory = meals;
-    }
-
-    update();
-
-    super.onInit();
+    mealsByCategory = meals;
+    isLoadingMeals.value = false;
   }
 
-  getMealsByCategory(categoryId) async {
-    current = categoryId;
-    mealsByCategory = meals
-        .where((element) => element.categoryId.isEqual(categoryId))
-        .toList();
-    if (mealsByCategory.isNotEmpty) {
-      update();
-    }
-    if (mealsByCategory.isEmpty) {
-      mealsByCategory = meals;
-      update();
-    }
-    if (categoryId == 0) {
-      mealsByCategory = meals;
-      current = 0;
-      update();
-    }
-    update();
+  Future<void> getMealsByCategory(categoryId) async {
+    isLoadingMeals.value = true;
+    mealsByCategory = await mealRepo.getMealsByCategoryId(categoryId);
+    isLoadingMeals.value = false;
   }
 
-  // Future<void> getFeaturedMeals() async {
-  //   featuredMeals = await mealRepo.getFeaturedMeals();
-  //   update();
-  // }
+  Future<void> getFeaturedMeals() async {
+    isLoadingFeaturedMeals.value = true;
+    featuredMeals = await mealRepo.getFeaturedMeals();
+    isLoadingFeaturedMeals.value = false;
+  }
 
   Meal? getMealFromId(mealId) {
     var meal = meals.firstWhereOrNull((meal) => meal.id == mealId);
@@ -68,9 +38,5 @@ class MealsController extends GetxController {
       return meal;
     }
     return null;
-  }
-
-  getUpdate() {
-    update();
   }
 }

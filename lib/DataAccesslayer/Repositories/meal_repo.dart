@@ -23,19 +23,12 @@ class MealRepo {
     return [];
   }
 
-
-  Future<dynamic>getMealsByIds(ids) async {
-
-    var response = await client.getMealsByIds(ids);
-      if (response != "") {
-       
-        final parsed = json.decode(response).cast<Map<String, dynamic>>();
-        return parsed.map<Meal>((json) => Meal.fromMap(json)).toList();
-      }
-      return [];
+  Future<List<Meal>> getMealsByCategoryId(caregoryId) async {
+    var response = await client.getMealsByCategoryId(caregoryId);
+    if (response != "") {
+      final parsed = json.decode(response).cast<Map<String, dynamic>>();
+      return parsed.map<Meal>((json) => Meal.fromMap(json)).toList();
+    }
+    return [];
   }
-
-
-
-
 }
