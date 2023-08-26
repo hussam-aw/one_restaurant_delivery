@@ -43,12 +43,12 @@ class OrderBox extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'حالة الطلب: قيد التوصيل',
                     style: UITextStyle.body,
                   ),
                   spacerHeight(height: 12),
-                  Text(
+                  const Text(
                     'اجمالي المبلغ: 500',
                     style: UITextStyle.xsmall,
                   ),
@@ -59,7 +59,7 @@ class OrderBox extends StatelessWidget {
           Expanded(
             child: IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 FontAwesomeIcons.solidPenToSquare,
                 size: 25,
               ),

@@ -4,7 +4,7 @@ import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 
 // ignore: must_be_immutable
 class AcceptButton extends StatelessWidget {
-  AcceptButton({
+  const AcceptButton({
     super.key,
     required this.text,
     this.backgroundColor = UIColors.red,

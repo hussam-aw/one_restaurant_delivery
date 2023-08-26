@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/drawer_list_tile.dart';
 import '../../../Constants/get_routes.dart';
 import '../../../Constants/ui_colors.dart';
 import '../../../Constants/ui_text_styles.dart';
@@ -32,96 +32,46 @@ class OrdDrawer extends StatelessWidget {
               'assets/images/person.png',
             )),
           ),
-          // Container(
-          //   margin: EdgeInsets.all(10),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       InkWell(
-          //           child: Text(
-          //             'en',
-          //             style: TextStyle(color: Colors.white),
-          //           ),
-          //           onTap: () {
-
-          //           }),
-          //           Divider(color: Colors.white ,
-          //           height: 10),
-          //       InkWell(
-          //           child: Text(
-          //             'ar',
-          //             style: TextStyle(color: Colors.white),
-          //           ),
-
-          //           onTap: () {
-
-          //           })
-          //     ],
-          //   ),
-          // ),
-           ListTile(
-            leading: const Icon(
-               FontAwesomeIcons.house,
-              color: Colors.white,
-            ),
-            title: const Text(
-              "الرئيسية",
-              style: UITextStyle.medium,
-            ),
+          DrawerListTile(
+            title: 'الرئيسية',
+            iconData: FontAwesomeIcons.house,
             onTap: () {
               Get.toNamed(AppRoutes.homeScreen);
             },
           ),
-          ListTile(
-            leading: const Icon(
-              Icons.menu_outlined,
-              color: Colors.white,
-            ),
-            title: const Text(
-              "التصنيفات",
-              style: UITextStyle.medium,
-            ),
+          DrawerListTile(
+            title: 'التصنيفات',
+            iconData: Icons.menu_outlined,
             onTap: () {
-               Get.toNamed(AppRoutes.Meals , arguments: 0);
+              Get.toNamed(AppRoutes.mealScreen, arguments: 0);
             },
           ),
-          ListTile(
-            leading: const Icon(
-             FontAwesomeIcons.cartShopping,
-              color: Colors.white,
-            ),
-            title: const Text(
-              "السلة",
-              style: UITextStyle.medium,
-            ),
+          DrawerListTile(
+            title: 'السلة',
+            iconData: FontAwesomeIcons.cartShopping,
             onTap: () {
               Get.toNamed(AppRoutes.shoppingCartScreen);
             },
           ),
-          ListTile(
-            leading: const Icon(
-              FontAwesomeIcons.burger,
-              color: Colors.white,
-            ),
-            title: const Text(
-              "الطلبات",
-              style: UITextStyle.medium,
-            ),
+          DrawerListTile(
+            title: 'الطلبات',
+            iconData: FontAwesomeIcons.cartShopping,
             onTap: () {
               Get.toNamed(AppRoutes.ordersScreen);
             },
           ),
-           ListTile(
-            leading: const Icon(
-              FontAwesomeIcons.heart,
-              color: Colors.white,
-            ),
-            title: const Text(
-              "المفضلة",
-              style: UITextStyle.medium,
-            ),
+          DrawerListTile(
+            title: 'المفضلة',
+            iconData: FontAwesomeIcons.heart,
             onTap: () {
-              Get.toNamed(AppRoutes.favorites);
+              Get.toNamed(AppRoutes.favoritesScreen);
+            },
+          ),
+          DrawerListTile(
+            title: 'الشكاوى والمقترحات',
+            iconData: FontAwesomeIcons.penToSquare,
+            onTap: () {
+              Get.toNamed(AppRoutes.complaintsScreen);
             },
           ),
         ],

@@ -28,7 +28,7 @@ class OrdBottomNavigationBar extends StatelessWidget {
             break;
 
           case 1:
-            Get.toNamed(AppRoutes.ordersScreen);
+            Get.toNamed(AppRoutes.mealsScreen);
             break;
 
           case 2:
@@ -39,7 +39,7 @@ class OrdBottomNavigationBar extends StatelessWidget {
             //Get.toNamed(AppRoutes.notificationsScreen);
             break;
           case 4:
-            //Get.toNamed(AppRoutes.favouritesScreen);
+            Get.toNamed(AppRoutes.favoritesScreen);
             break;
         }
       }),

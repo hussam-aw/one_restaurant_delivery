@@ -23,7 +23,7 @@ class OrdIconButton extends StatelessWidget {
         color: backgroundColor,
         borderRadius: borderRadius,
         border: Border.all(
-          color: UIColors.veryDarkGray,
+          color: UIColors.veryDarkGrey,
         ),
       ),
       child: Center(
