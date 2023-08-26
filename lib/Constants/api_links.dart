@@ -1,8 +1,7 @@
-const baseUrl = "http://rowadhalab.brain.sy/api/v1/";
+const baseUrl = "http://rowadhalab.brain.sy/api/v1";
 
-const categories = "categories";
-const featuredMeals = "featuredMeals";
-const offers = "offers";
-const mealsLink = "meals";
-
-const mealsByIds = "mealsByIds";
+const categoriesLink = "/categories";
+const featuredMealsLink = "/featuredMeals";
+const offersLink = "/offers";
+const mealsLink = "/meals";
+const mealsByCategoryLink = "/mealsByCategoryId";

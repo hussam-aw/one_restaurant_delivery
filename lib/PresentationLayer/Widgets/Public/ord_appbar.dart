@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 
@@ -37,7 +38,9 @@ PreferredSize ordAppBar() {
             size: 24,
             color: UIColors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(AppRoutes.shoppingCartScreen);
+          },
         ),
         Align(
           alignment: Alignment.centerLeft,

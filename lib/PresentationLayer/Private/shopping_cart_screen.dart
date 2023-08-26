@@ -7,6 +7,7 @@ import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_item_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_summary_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_summary_item.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/send_order_bottom_sheet.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/accept_button.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/page_title.dart';
@@ -38,7 +39,6 @@ class ShoppingCartScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      spacerHeight(height: 25),
                       const PageTitle(title: 'سلة الشراء'),
                       spacerHeight(),
                       Expanded(
@@ -102,7 +102,11 @@ class ShoppingCartScreen extends StatelessWidget {
                       spacerHeight(),
                       Expanded(
                         child: AcceptButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.bottomSheet(
+                              const SendOrderBottomSheet(),
+                            );
+                          },
                           text: 'إرسال الطلب',
                         ),
                       ),

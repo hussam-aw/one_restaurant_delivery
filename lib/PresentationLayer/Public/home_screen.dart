@@ -5,9 +5,8 @@ import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
-import 'package:one_restaurant_delivery/Constants/get_routes.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/category_box.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/favourite_meal_box.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/categories_list_view.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/featured_meals_list_view.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_bottom_navigation_bar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_drawer.dart';
@@ -16,17 +15,16 @@ import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_sli
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_text_form_field.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/section_title.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_height.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_width.dart';
-
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Shimmers/image_container_shimmer.dart';
 import '../../BussinessLayer/Controllers/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  // final homeController = Get.put(HomeController());
-  // final offersController = Get.find<OffersController>();
-  // final categoriesController = Get.find<CategoriesController>();
-  // final mealsController = Get.find<MealsController>();
+  final homeController = Get.put(HomeController());
+  final offersController = Get.find<OffersController>();
+  final categoriesController = Get.find<CategoriesController>();
+  final mealsController = Get.find<MealsController>();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +49,7 @@ class HomeScreen extends StatelessWidget {
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'أبرز العروض'),
                   spacerHeight(height: 20),
+<<<<<<< HEAD
                   GetBuilder<HomeController>(
                       builder: (controller) => controller.offers.isNotEmpty
                           ? OrdSlider(
@@ -66,57 +65,49 @@ class HomeScreen extends StatelessWidget {
                               ],
                             )
                           : Container()),
+=======
+                  GetBuilder<OffersController>(
+                      init: offersController,
+                      builder: (_) => OrdSlider(
+                            widgets: offersController.offers.isNotEmpty
+                                ? offersController.offers
+                                    .map(
+                                      (offer) => OrdImageContainer(
+                                        imagePath: offer.image,
+                                      ),
+                                    )
+                                    .toList()
+                                : [const ImageContainerShimmer()],
+                          )),
+>>>>>>> d86d249a2877476b2696bc296b628c22f36754de
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'التصنيفات'),
                   spacerHeight(height: 20),
                   SizedBox(
-                    height: 100,
-                    child: GetBuilder<HomeController>(
-                        builder: (controller) => ListView.separated(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: controller.categories.length,
-                              itemBuilder: (BuildContext context, index) {
-                                return InkWell(
-                                  child: CategoryBox(
-                                    categoryImage:
-                                        controller.categories[index].image,
-                                    categoryName:
-                                        controller.categories[index].name,
-                                  ),
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.Meals,
-                                  arguments: controller.categories[index].id);
-                                  },
-                                );
-                              },
-                              separatorBuilder: (BuildContext context, index) =>
-                                  spacerWidth(width: 25),
-                            )),
+                    height: 120,
+                    child: Obx(
+                      () => categoriesController.isLoadingCategories.value
+                          ? const CategoriesListView(
+                              categories: [],
+                            )
+                          : CategoriesListView(
+                              categories: categoriesController.categories,
+                            ),
+                    ),
                   ),
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'أبرز الوجبات'),
                   spacerHeight(height: 20),
                   SizedBox(
                     height: 200,
-                    child: GetBuilder<HomeController>(
-                      builder: (controller) => ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: controller.meals.length,
-                        itemBuilder: (context, index) {
-                          return FavoutiteMealBox(
-                            onTap: () {
-                              Get.toNamed(AppRoutes.mealScreen,
-                                  arguments: controller.meals[index]);
-                            },
-                            mealImage: controller.meals[index].image,
-                            mealName: controller.meals[index].name,
-                            mealPrice: controller.meals[index].price
-                                .toString(),
-                          );
-                        },
-                        separatorBuilder: (context, index) =>
-                            spacerWidth(width: 25),
-                      ),
+                    child: Obx(
+                      () => mealsController.isLoadingFeaturedMeals.value
+                          ? const FeaturedProductsListView(
+                              meals: [],
+                            )
+                          : FeaturedProductsListView(
+                              meals: mealsController.featuredMeals,
+                            ),
                     ),
                   )
                 ],

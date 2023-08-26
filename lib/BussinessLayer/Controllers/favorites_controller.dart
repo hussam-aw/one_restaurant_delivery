@@ -1,61 +1,43 @@
-import 'dart:convert';
-
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Clients/box_client.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
 
-import '../../DataAccesslayer/Models/meal.dart';
-import '../../DataAccesslayer/Repositories/meal_repo.dart';
-import 'meals_controller.dart';
+class FavouritesController extends GetxController {
+  List<Meal> favoriteMeals = [];
+  BoxClient boxClient = BoxClient();
+  var isLoadingFavouriteMeals = false.obs;
+  final mealsController = Get.find<MealsController>();
 
-class FavoritesController extends GetxController {
-  static final box = GetStorage();
-
-  late var favorites = [];
-
-  MealRepo mealRepo = MealRepo();
-
-  List<Meal> mealsFavorite = [];
-  late Meal a;
-  
-    MealsController mealsController = Get.put(MealsController());
-
-  static List<dynamic> getFavorites() {
-    return box.read('favorites') ?? [];
-  }
-
-  @override
-  onInit() async {
-    favorites = box.read('favorites') ?? [];
-
-    mealsFavorite = await mealRepo.getMealsByIds(jsonEncode(favorites));
-
-    update();
-    super.onInit();
-  }
-
-  void addFavorite(productId) {
-     
-    if (!favorites.contains(productId)) {
-      favorites = getFavorites();
-      favorites.add(productId);
-      box.write('favorites', favorites);
-      onInit();
-    
-      mealsController.getUpdate();
-      //controllerMeal.onInit();
+  Future<void> getFavouriteMeals() async {
+    isLoadingFavouriteMeals.value = true;
+    var favouritesIds = await boxClient.getFavouriteMeals();
+    if (favouritesIds.isNotEmpty) {
+      favoriteMeals = favouritesIds
+          .map((id) => mealsController.getMealFromId(id)!)
+          .toList();
     }
+    isLoadingFavouriteMeals.value = false;
+  }
+
+  Future<void> toggleFavourite(Meal meal) async {
+    Meal? m =
+        favoriteMeals.firstWhereOrNull((favourite) => favourite.id == meal.id);
+    if (m != null) {
+      favoriteMeals.removeWhere((favourite) => favourite.id == meal.id);
+    } else {
+      favoriteMeals.add(meal);
+    }
+    await boxClient.addToFavourites(favoriteMeals);
     update();
   }
 
-  void removeFavorite(productId) {
-     
-    if (favorites.contains(productId)) {
-      favorites = getFavorites();
-      favorites.remove(productId);
-      box.write('favorites', favorites);
-      onInit();
-      mealsController.getUpdate();
+  bool checkFavorite(Meal meal) {
+    Meal? m =
+        favoriteMeals.firstWhereOrNull((favourite) => favourite.id == meal.id);
+    if (m != null) {
+      return true;
     }
-    update();
+    return false;
   }
 }

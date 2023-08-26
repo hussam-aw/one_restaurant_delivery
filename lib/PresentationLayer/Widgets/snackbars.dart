@@ -37,6 +37,6 @@ class SnackBars {
           textAlign: TextAlign.center,
         ),
         duration: const Duration(seconds: 2),
-        backgroundColor: UIColors.darkGray);
+        backgroundColor: UIColors.darkGrey);
   }
 }

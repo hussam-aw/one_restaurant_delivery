@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Order/order_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_drawer.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/page_title.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_height.dart';
 
-import '../Widgets/Public/ord_drawer.dart';
-
-class OrdersScreen extends StatelessWidget {
-  const OrdersScreen({super.key});
+class ComplaintsScreen extends StatelessWidget {
+  const ComplaintsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +19,8 @@ class OrdersScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           child: Column(
             children: [
-              const PageTitle(title: 'الطلبات'),
-              spacerHeight(),
-              Expanded(
-                  child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return const OrderBox();
-                },
-                separatorBuilder: (context, index) => spacerHeight(),
-                itemCount: 5,
-              )),
+              const PageTitle(title: 'الشكاوى والمقترحات'),
+              spacerHeight(height: 22),
             ],
           ),
         ),

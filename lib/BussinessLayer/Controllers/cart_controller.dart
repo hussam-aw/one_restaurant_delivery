@@ -23,7 +23,7 @@ class CartController extends GetxController {
     update();
   }
 
-  Future<void> addToCart(Meal meal, String specialOrder) async {
+  Future<void> addToCart(Meal meal) async {
     var cartItemIndex = getCartItemIndex(meal.id);
     if (cartItemIndex == null) {
       var cartItem = CartItem(

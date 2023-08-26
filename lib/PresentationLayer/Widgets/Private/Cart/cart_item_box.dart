@@ -30,7 +30,7 @@ class CartItemBox extends StatelessWidget {
             child: Container(
               height: 67,
               decoration: const BoxDecoration(
-                color: UIColors.lightGray,
+                color: UIColors.lightGrey,
                 borderRadius: raduis20,
               ),
               child: OrdImageContainer(
@@ -55,9 +55,9 @@ class CartItemBox extends StatelessWidget {
                       style: UITextStyle.xsmall,
                       children: [
                         TextSpan(text: 'العدد: ${cartItem.qty}'),
-                        TextSpan(text: ' - '),
+                        const TextSpan(text: ' - '),
                         TextSpan(text: 'الافرادي: ${meal.price}'),
-                        TextSpan(text: ' - '),
+                        const TextSpan(text: ' - '),
                         TextSpan(
                             text: 'الاجمالي: ${meal.price * cartItem.qty}\$'),
                       ],
@@ -70,7 +70,7 @@ class CartItemBox extends StatelessWidget {
           Expanded(
             child: IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 FontAwesomeIcons.solidPenToSquare,
                 size: 25,
               ),
