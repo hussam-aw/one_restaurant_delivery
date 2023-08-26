@@ -21,7 +21,7 @@ class MealScreen extends StatelessWidget {
   MealScreen({super.key});
 
   final cartController = Get.find<CartController>();
-  Meal? meal = Get.arguments;
+  Meal meal = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,9 @@ class MealScreen extends StatelessWidget {
                             size: 30,
                             color: UIColors.white,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.back();
+                          },
                         ),
                       ),
                       flexibleSpace: FlexibleSpaceBar(
@@ -68,22 +70,23 @@ class MealScreen extends StatelessWidget {
                             children: [
                               spacerHeight(height: 22),
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
                                 child: Row(
                                   children: [
                                     Flexible(
                                       child: Text(
-                                        meal!.name.toString(),
+                                        meal.name.toString(),
                                         style: UITextStyle.heading,
                                       ),
                                     ),
                                     Flexible(
                                       child: Align(
-                                        alignment: Alignment.center,
+                                        alignment: Alignment.centerLeft,
                                         child: AmountBox(
                                           width: 90,
                                           height: 45,
-                                          amount: meal!.price.toString(),
+                                          amount: meal.price.toString(),
                                         ),
                                       ),
                                     ),
@@ -107,7 +110,7 @@ class MealScreen extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         cartController
-                                            .increaseCartItemQty(meal!.id);
+                                            .increaseCartItemQty(meal.id);
                                       },
                                     ),
                                     spacerWidth(width: 30),
@@ -116,7 +119,7 @@ class MealScreen extends StatelessWidget {
                                       return AmountBox(
                                         backgroundColor: UIColors.lightDeepBlue,
                                         border: Border.all(
-                                            color: UIColors.veryDarkGray),
+                                            color: UIColors.veryDarkGrey),
                                         shape: BoxShape.circle,
                                         textStyle: UITextStyle.title,
                                         amount:
@@ -133,7 +136,7 @@ class MealScreen extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         cartController
-                                            .decreaseCartItemQty(meal!.id);
+                                            .decreaseCartItemQty(meal.id);
                                       },
                                     )
                                   ],
@@ -141,7 +144,8 @@ class MealScreen extends StatelessWidget {
                               ),
                               spacerHeight(height: 22),
                               Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -151,9 +155,11 @@ class MealScreen extends StatelessWidget {
                                       title: 'مكونات الوجبة',
                                     ),
                                     spacerHeight(),
-                                    Text(meal!.components.toString()),
+                                    Text(
+                                      meal.components.toString(),
+                                      style: UITextStyle.xsmall,
+                                    ),
                                     // RichText(
-
                                     // text: TextSpan(
                                     //   style: UITextStyle.xsmall,
                                     //   children: mealContents
@@ -195,7 +201,7 @@ class MealScreen extends StatelessWidget {
                 child: AcceptButton(
                   text: 'إضافة للسلة',
                   onPressed: () {
-                    cartController.addToCart(meal!, '');
+                    cartController.addToCart(meal);
                   },
                 ),
               )

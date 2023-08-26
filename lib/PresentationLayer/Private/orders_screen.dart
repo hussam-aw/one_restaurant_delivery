@@ -16,18 +16,17 @@ class OrdersScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: ordAppBar(),
-          drawer: const OrdDrawer(),
+        drawer: const OrdDrawer(),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           child: Column(
             children: [
-              spacerHeight(height: 25),
               const PageTitle(title: 'الطلبات'),
               spacerHeight(),
               Expanded(
                   child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return OrderBox();
+                  return const OrderBox();
                 },
                 separatorBuilder: (context, index) => spacerHeight(),
                 itemCount: 5,
