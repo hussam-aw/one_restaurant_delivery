@@ -3,6 +3,7 @@ import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/complaints_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/favorites_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/orders_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Private/pinned_places_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/shopping_cart_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/home_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/splash_screen.dart';
@@ -42,5 +43,9 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: AppRoutes.complaintsScreen,
     page: () => ComplaintsScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.pinnedPlacesScreen,
+    page: () => PinnedPlacesScreen(),
   ),
 ];
