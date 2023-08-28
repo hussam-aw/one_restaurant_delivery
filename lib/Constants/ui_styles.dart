@@ -18,7 +18,7 @@ const acceptButtonStyle = ButtonStyle(
 );
 
 //Input Decoration
-final normalTextFieldStyle = InputDecoration(
+final customTextFieldStyle = InputDecoration(
   filled: true,
   fillColor: UIColors.lightDeepBlue,
   border: OutlineInputBorder(
@@ -36,6 +36,23 @@ final normalTextFieldStyle = InputDecoration(
   ),
   hintStyle: UITextStyle.small.copyWith(
     color: UIColors.lightGrey,
+  ),
+);
+
+final normalTextFieldStyle = InputDecoration(
+  filled: true,
+  fillColor: UIColors.white,
+  hintStyle: UITextStyle.body.copyWith(color: UIColors.lightGrey),
+  border: UnderlineInputBorder(
+      borderRadius: BorderRadius.circular(17),
+      borderSide: const BorderSide(color: UIColors.lightDeepBlue)),
+  focusedBorder: UnderlineInputBorder(
+      borderRadius: BorderRadius.circular(17),
+      borderSide: const BorderSide(color: UIColors.lightDeepBlue)),
+  enabledBorder: const UnderlineInputBorder(
+    borderSide: BorderSide(
+      color: UIColors.lightDeepBlue,
+    ),
   ),
 );
 

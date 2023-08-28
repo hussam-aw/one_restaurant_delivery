@@ -75,6 +75,13 @@ class OrdDrawer extends StatelessWidget {
               Get.toNamed(AppRoutes.complaintsScreen);
             },
           ),
+          DrawerListTile(
+            title: 'الأماكن المثبتة',
+            iconData: FontAwesomeIcons.locationPin,
+            onTap: () {
+              Get.toNamed(AppRoutes.pinnedPlacesScreen);
+            },
+          ),
         ],
       ),
     );

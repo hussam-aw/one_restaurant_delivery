@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/favorites_controller.dart';
+import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
@@ -61,9 +62,17 @@ class MealBox extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(
-                FontAwesomeIcons.cartPlus,
-                size: 25,
+              InkWell(
+                onTap: () {
+                  Get.toNamed(
+                    AppRoutes.mealScreen,
+                    arguments: meal,
+                  );
+                },
+                child: const Icon(
+                  FontAwesomeIcons.cartPlus,
+                  size: 25,
+                ),
               ),
               spacerWidth(width: 22),
               if (showFavouriteIcon)

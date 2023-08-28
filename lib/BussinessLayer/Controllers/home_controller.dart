@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/cart_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/complaints_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/favorites_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
@@ -14,6 +15,7 @@ class HomeController extends GetxController {
   var mealsController = Get.put(MealsController());
   final cartController = Get.put(CartController());
   final favouriteController = Get.put(FavouritesController());
+  final complaintsController = Get.put(ComplaintsController());
 
   List<Meal> meals = [];
   List<Offer> offers = [];
@@ -32,5 +34,6 @@ class HomeController extends GetxController {
     await mealsController.getMeals();
     await cartController.getCartItems();
     await favouriteController.getFavouriteMeals();
+    complaintsController.getComplaints();
   }
 }

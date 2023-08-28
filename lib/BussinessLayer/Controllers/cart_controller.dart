@@ -3,11 +3,15 @@ import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Clients/box_client.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/cart_item.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/coupon.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/coupon_data.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Repositories/cart_repo.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/snackbars.dart';
 
 class CartController extends GetxController {
   TextEditingController specialOrderController = TextEditingController();
+  TextEditingController couponCodeController = TextEditingController();
   List<CartItem> cartItems = [];
   int itemQty = 1;
   BoxClient boxClient = BoxClient();
@@ -16,6 +20,7 @@ class CartController extends GetxController {
   num discountAmount = 0.0;
   num netAmount = 0.0;
   var mealsController = Get.find<MealsController>();
+  CartRepo cartRepo = CartRepo();
 
   Future<void> getCartItems() async {
     cartItems = await boxClient.getCartItems();
@@ -69,7 +74,6 @@ class CartController extends GetxController {
 
   void calc() {
     totalAmount = 0.0;
-    discountAmount = 0.0;
     netAmount = 0.0;
     for (var item in cartItems) {
       totalAmount +=
@@ -77,5 +81,35 @@ class CartController extends GetxController {
     }
     netAmount = totalAmount - discountAmount;
     update();
+  }
+
+  Future<void> checkCouponCode() async {
+    String code = couponCodeController.text;
+    Coupon? coupon = await cartRepo.getCouponData(code);
+    if (coupon != null && coupon.matched != 0) {
+      applyCouponData(coupon.data!);
+    } else {
+      Get.back();
+      SnackBars.showError('كود الحسم خاطئ');
+    }
+  }
+
+  void applyCouponData(CouponData couponData) {
+    if (couponData.mealId != null) {
+      CartItem? couponCartItem = cartItems
+          .firstWhereOrNull((item) => item.mealId == couponData.mealId);
+      if (couponCartItem != null) {
+        if (couponData.amountType == 'number') {
+          discountAmount = couponData.amount;
+        } else {
+          discountAmount = couponData.amount *
+              mealsController.getMealFromId(couponCartItem.mealId)!.price;
+        }
+      }
+    } else {
+      discountAmount = couponData.amount;
+    }
+    calc();
+    Get.back();
   }
 }
