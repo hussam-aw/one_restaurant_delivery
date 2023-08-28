@@ -19,12 +19,12 @@ class DrawerListTile extends StatelessWidget {
     return ListTile(
       title: Text(
         title,
-        style: UITextStyle.medium,
+        style: UITextStyle.medium.apply(fontSizeFactor: .8),
       ),
       leading: Icon(
         iconData,
         color: UIColors.white,
-        size: 30,
+        size: 25,
       ),
       onTap: onTap,
     );

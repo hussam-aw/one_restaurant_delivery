@@ -49,23 +49,6 @@ class HomeScreen extends StatelessWidget {
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'أبرز العروض'),
                   spacerHeight(height: 20),
-<<<<<<< HEAD
-                  GetBuilder<HomeController>(
-                      builder: (controller) => controller.offers.isNotEmpty
-                          ? OrdSlider(
-                              widgets: [
-                                
-                                for (var i = 0;
-                                    i < controller.offers.length;
-                                    i++)
-                                    
-                                  OrdImageContainer(
-                                    imagePath: controller.offers[i].image,
-                                  ),
-                              ],
-                            )
-                          : Container()),
-=======
                   GetBuilder<OffersController>(
                       init: offersController,
                       builder: (_) => OrdSlider(
@@ -79,7 +62,6 @@ class HomeScreen extends StatelessWidget {
                                     .toList()
                                 : [const ImageContainerShimmer()],
                           )),
->>>>>>> d86d249a2877476b2696bc296b628c22f36754de
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'التصنيفات'),
                   spacerHeight(height: 20),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/drawer_list_tile.dart';
+
 import '../../../Constants/get_routes.dart';
 import '../../../Constants/ui_colors.dart';
 import '../../../Constants/ui_text_styles.dart';
@@ -17,10 +18,10 @@ class OrdDrawer extends StatelessWidget {
         children: [
           const UserAccountsDrawerHeader(
             decoration: BoxDecoration(
-              color: UIColors.darkDeepBlue,
+              color: UIColors.red,
             ),
             accountName: Text(
-              'Ruba',
+              'Ali',
               style: UITextStyle.title,
             ),
             accountEmail: Text(
