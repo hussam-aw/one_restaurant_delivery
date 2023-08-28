@@ -1,4 +1,4 @@
-const baseUrl = "http://rowadhalab.brain.sy/api/v1";
+const baseUrl = "https://rowadhalab.brain.sy/api/v1";
 
 const categoriesLink = "/categories";
 const featuredMealsLink = "/featuredMeals";
