@@ -4,6 +4,7 @@ import 'package:one_restaurant_delivery/BussinessLayer/Controllers/cart_controll
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/apply_coupon_bottom_sheet.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_item_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_summary_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_summary_item.dart';
@@ -62,25 +63,29 @@ class ShoppingCartScreen extends StatelessWidget {
               spacerHeight(height: 22),
               Expanded(
                 flex: 2,
-                child: CartSummaryBox(
-                  items: [
-                    CartSummaryItem(
-                      itemTitle: 'الإجمالي',
-                      itemAmount: '${cartController.totalAmount}\$',
-                    ),
-                    CartSummaryItem(
-                      itemTitle: 'الحسم',
-                      itemAmount: '${cartController.discountAmount}\$',
-                      amountTextStyle: UITextStyle.medium.copyWith(
-                        color: UIColors.white.withOpacity(0.5),
-                      ),
-                    ),
-                    CartSummaryItem(
-                      itemTitle: 'الصافي',
-                      itemAmount: '${cartController.netAmount}\$',
-                    )
-                  ],
-                ),
+                child: GetBuilder<CartController>(
+                    init: cartController,
+                    builder: (_) {
+                      return CartSummaryBox(
+                        items: [
+                          CartSummaryItem(
+                            itemTitle: 'الإجمالي',
+                            itemAmount: '${cartController.totalAmount}\$',
+                          ),
+                          CartSummaryItem(
+                            itemTitle: 'الحسم',
+                            itemAmount: '${cartController.discountAmount}\$',
+                            amountTextStyle: UITextStyle.medium.copyWith(
+                              color: UIColors.white.withOpacity(0.5),
+                            ),
+                          ),
+                          CartSummaryItem(
+                            itemTitle: 'الصافي',
+                            itemAmount: '${cartController.netAmount}\$',
+                          )
+                        ],
+                      );
+                    }),
               ),
               spacerHeight(height: 22),
               Expanded(
@@ -91,7 +96,11 @@ class ShoppingCartScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: AcceptButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.bottomSheet(
+                              ApplyCouponBottomSheet(),
+                            );
+                          },
                           backgroundColor: UIColors.white,
                           textStyle: UITextStyle.medium.copyWith(
                             color: UIColors.red,
