@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/complaints_controller.dart';
-import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/complaint.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Complaints/complaint_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Complaints/send_complaint_bottom_sheet.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/add_floating_button.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/loading_item.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_drawer.dart';
@@ -61,12 +60,7 @@ class ComplaintsScreen extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(
-            FontAwesomeIcons.plus,
-            color: UIColors.white,
-            size: 30,
-          ),
+        floatingActionButton: AddFloatingButton(
           onPressed: () {
             Get.bottomSheet(SendComplaintBottomSheet());
           },
