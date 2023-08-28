@@ -41,6 +41,6 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: AppRoutes.complaintsScreen,
-    page: () => const ComplaintsScreen(),
+    page: () => ComplaintsScreen(),
   ),
 ];
