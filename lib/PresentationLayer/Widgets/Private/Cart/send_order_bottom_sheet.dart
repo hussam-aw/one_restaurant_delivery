@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/order_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/places_controller.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_styles.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
@@ -7,12 +9,15 @@ import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_width.dart';
 
 class SendOrderBottomSheet extends StatelessWidget {
-  const SendOrderBottomSheet({super.key});
+  SendOrderBottomSheet({super.key});
+
+  final orderController = Get.put(OrderController());
+  final placesController = Get.find<PlacesController>();
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.width * .6,
+      height: Get.width * .7,
       decoration: const BoxDecoration(
         borderRadius: raduis32Top,
         color: UIColors.white,
@@ -21,45 +26,38 @@ class SendOrderBottomSheet extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
         child: Column(
           children: [
-            Text(
-              'إرسال الطلب',
-              style: UITextStyle.heading.copyWith(
-                color: UIColors.lightDeepBlue,
-                fontWeight: FontWeight.bold,
+            Expanded(
+              child: Text(
+                'إرسال الطلب',
+                style: UITextStyle.heading.copyWith(
+                  color: UIColors.lightDeepBlue,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            spacerWidth(width: 25),
+            spacerWidth(),
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    child: Text(
-                      'العنوان الحالي',
-                      style: UITextStyle.title.copyWith(
-                        color: UIColors.darkGrey,
+              flex: 3,
+              child: Align(
+                child: ListView.separated(
+                  itemBuilder: (contex, index) {
+                    return InkWell(
+                      onTap: () {
+                        orderController
+                            .createOrder(placesController.pinnedPlaces[index]);
+                      },
+                      child: Text(
+                        placesController.pinnedPlaces[index].name,
+                        textAlign: TextAlign.center,
+                        style: UITextStyle.title.copyWith(
+                          color: UIColors.darkGrey,
+                        ),
                       ),
-                    ),
-                  ),
-                  spacerHeight(height: 22),
-                  InkWell(
-                    child: Text(
-                      'المكتب',
-                      style: UITextStyle.title.copyWith(
-                        color: UIColors.darkGrey,
-                      ),
-                    ),
-                  ),
-                  spacerHeight(height: 22),
-                  InkWell(
-                    child: Text(
-                      'المنزل',
-                      style: UITextStyle.title.copyWith(
-                        color: UIColors.darkGrey,
-                      ),
-                    ),
-                  )
-                ],
+                    );
+                  },
+                  separatorBuilder: (contex, index) => spacerHeight(height: 20),
+                  itemCount: placesController.pinnedPlaces.length,
+                ),
               ),
             ),
           ],
