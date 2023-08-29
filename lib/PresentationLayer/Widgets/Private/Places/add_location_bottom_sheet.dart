@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/place_controller.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_styles.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Places/add_place_name_dialog.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/accept_button.dart';
 
 class AddCurrentLocationBottomSheet extends StatelessWidget {
-  const AddCurrentLocationBottomSheet({super.key});
+  AddCurrentLocationBottomSheet({super.key});
+
+  final placeController = Get.put(PlaceController());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.width * .5,
+      height: Get.width * .7,
       decoration: const BoxDecoration(
         borderRadius: raduis32Top,
         color: UIColors.white,
@@ -21,6 +25,7 @@ class AddCurrentLocationBottomSheet extends StatelessWidget {
         child: Column(
           children: [
             Expanded(
+              flex: 2,
               child: Text(
                 'إضافة الموقع الحالي للأماكن المثبتة',
                 style: UITextStyle.body.copyWith(
@@ -30,7 +35,7 @@ class AddCurrentLocationBottomSheet extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 5,
+              flex: 7,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Text(
@@ -46,7 +51,13 @@ class AddCurrentLocationBottomSheet extends StatelessWidget {
               flex: 3,
               child: AcceptButton(
                 text: 'إضافة الموقع الحالي',
-                onPressed: () {},
+                onPressed: () async {
+                  await placeController.getCurrentLocationData();
+                  if (placeController.currentLocationData != null) {
+                    Get.back();
+                    Get.dialog(AddPlaceNameDialog());
+                  }
+                },
               ),
             ),
           ],
