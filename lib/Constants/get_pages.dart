@@ -34,7 +34,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: AppRoutes.ordersScreen,
-    page: () => const OrdersScreen(),
+    page: () => OrdersScreen(),
   ),
   GetPage(
     name: AppRoutes.favoritesScreen,

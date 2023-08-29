@@ -30,15 +30,15 @@ class Order {
   factory Order.fromMap(Map<String, dynamic> map) {
     return Order(
       id: map['id'] as int,
-      userId: map['user_id'] ?? "",
-      total: map['total'] ?? "",
-      statusId: map['status_id'] ?? "",
+      userId: map['user_id'] ?? 1,
+      total: num.parse(map['total'] ?? "0.0"),
+      statusId: map['status_id'] ?? 0,
       notes: map['notes'] ?? "",
-      discount: map['discount'] ?? "",
-      isDiscount: map['is_discount'] ?? "",
+      discount: map['discount'] ?? 0.0,
+      isDiscount: map['is_discount'] ?? 0,
       address: map['address'] ?? "",
-      lat: map['lat'] ?? "",
-      long: map['long'] ?? "",
+      lat: map['lat'] ?? 0.0,
+      long: map['long'] ?? 0.0,
       createdAt: map['created_at'] ?? "",
     );
   }
