@@ -113,7 +113,7 @@ class ShoppingCartScreen extends StatelessWidget {
                         child: AcceptButton(
                           onPressed: () {
                             Get.bottomSheet(
-                              const SendOrderBottomSheet(),
+                              SendOrderBottomSheet(),
                             );
                           },
                           text: 'إرسال الطلب',
