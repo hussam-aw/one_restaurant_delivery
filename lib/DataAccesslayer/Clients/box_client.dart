@@ -1,6 +1,7 @@
 import 'package:get_storage/get_storage.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/cart_item.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/place.dart';
 
 class BoxClient {
   final box = GetStorage();
@@ -35,5 +36,22 @@ class BoxClient {
     await box.remove('favourite_meals');
     var ids = meals.map((meal) => meal.id);
     await box.write('favourite_meals', ids.toList());
+  }
+
+  // Pinned Place Methods
+  Future<List<Place>> getPinnedPlaces() async {
+    var pinnedPlaces = await box.read('pinned_places');
+    if (pinnedPlaces != null && pinnedPlaces != "") {
+      final data = pinnedPlaces.cast<Map<String, dynamic>>();
+      return data.map<Place>((json) => Place.fromJson(json)).toList();
+    }
+
+    return [];
+  }
+
+  Future<void> addToPinnedPlaces(List<Place> places) async {
+    await box.remove('pinned_places');
+    var parsedPlaces = places.map((place) => place.toJson());
+    await box.write('pinned_places', parsedPlaces.toList());
   }
 }
