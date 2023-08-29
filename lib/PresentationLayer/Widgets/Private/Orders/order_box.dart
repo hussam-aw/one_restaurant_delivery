@@ -3,10 +3,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_styles.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/order.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_height.dart';
 
 class OrderBox extends StatelessWidget {
-  const OrderBox({super.key});
+  const OrderBox({super.key, required this.order});
+
+  final Order order;
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +30,9 @@ class OrderBox extends StatelessWidget {
                 color: UIColors.red,
                 borderRadius: raduis20,
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
-                  '#66',
+                  '#${order.id}',
                   softWrap: true,
                   style: UITextStyle.heading,
                 ),
@@ -48,8 +51,8 @@ class OrderBox extends StatelessWidget {
                     style: UITextStyle.body,
                   ),
                   spacerHeight(height: 12),
-                  const Text(
-                    'اجمالي المبلغ: 500',
+                  Text(
+                    'اجمالي المبلغ: ${order.total}',
                     style: UITextStyle.xsmall,
                   ),
                 ],
