@@ -8,3 +8,4 @@ const mealsByCategoryLink = "/mealsByCategoryId";
 const couponLink = "/checkCouponCodes";
 const complaintsLink = "/complaints";
 const complaintLink = "/complaint";
+const orderLink = "/order";
