@@ -198,10 +198,15 @@ class MealScreen extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                child: AcceptButton(
-                  text: 'إضافة للسلة',
-                  onPressed: () {
-                    cartController.addToCart(meal);
+                child: Obx(
+                  () {
+                    return AcceptButton(
+                      text: 'إضافة للسلة',
+                      onPressed: () {
+                        cartController.addToCart(meal);
+                      },
+                      isLoading: cartController.adding.value,
+                    );
                   },
                 ),
               )

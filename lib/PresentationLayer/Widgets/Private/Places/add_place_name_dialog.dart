@@ -31,10 +31,15 @@ class AddPlaceNameDialog extends StatelessWidget {
             controller: placeController.placeNameController,
           ),
           spacerHeight(),
-          AcceptButton(
-            text: 'تثبيت',
-            onPressed: () {
-              placeController.createPlace();
+          Obx(
+            () {
+              return AcceptButton(
+                text: 'تثبيت',
+                onPressed: () {
+                  placeController.createPlace();
+                },
+                isLoading: placeController.savingPlace.value,
+              );
             },
           ),
         ],

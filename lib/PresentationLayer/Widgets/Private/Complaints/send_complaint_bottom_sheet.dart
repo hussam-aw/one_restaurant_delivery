@@ -13,53 +13,61 @@ class SendComplaintBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Get.width * .7,
-      decoration: const BoxDecoration(
-        borderRadius: raduis32Top,
-        color: UIColors.white,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
-        child: Column(
-          children: [
-            Expanded(
-              child: Text(
-                'إرسال مقترح | شكوى',
-                style: UITextStyle.body.copyWith(
-                  color: UIColors.lightDeepBlue,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: TextFormField(
-                  maxLines: 4,
-                  textAlign: TextAlign.center,
-                  controller:
-                      complaintController.complaintDescriptionController,
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Container(
+        height: Get.width * .7,
+        decoration: const BoxDecoration(
+          borderRadius: raduis32Top,
+          color: UIColors.white,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
+          child: Column(
+            children: [
+              Expanded(
+                child: Text(
+                  'إرسال مقترح | شكوى',
                   style: UITextStyle.body.copyWith(
-                    color: UIColors.darkGrey,
-                  ),
-                  decoration: customTextFieldStyle.copyWith(
-                    fillColor: UIColors.lightGrey,
+                    color: UIColors.lightDeepBlue,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: AcceptButton(
-                text: 'إرسال',
-                onPressed: () {
-                  complaintController.createCpmplaint();
-                },
+              Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: TextFormField(
+                    maxLines: 4,
+                    textAlign: TextAlign.center,
+                    controller:
+                        complaintController.complaintDescriptionController,
+                    style: UITextStyle.body.copyWith(
+                      color: UIColors.darkGrey,
+                    ),
+                    decoration: customTextFieldStyle.copyWith(
+                      fillColor: UIColors.lightGrey,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                flex: 2,
+                child: Obx(
+                  () {
+                    return AcceptButton(
+                      text: 'إرسال',
+                      onPressed: () {
+                        complaintController.createCpmplaint();
+                      },
+                      isLoading: complaintController.loading.value,
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -13,42 +13,50 @@ class ApplyCouponBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: Get.width * .6,
-      decoration: const BoxDecoration(
-        borderRadius: raduis32Top,
-        color: UIColors.white,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 5,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  controller: cartController.couponCodeController,
-                  style: UITextStyle.body.copyWith(
-                    color: UIColors.darkGrey,
-                  ),
-                  decoration: normalTextFieldStyle.copyWith(
-                    hintText: 'أدخل كود الحسم',
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Container(
+        height: Get.width * .6,
+        decoration: const BoxDecoration(
+          borderRadius: raduis32Top,
+          color: UIColors.white,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 5,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: TextFormField(
+                    textAlign: TextAlign.center,
+                    controller: cartController.couponCodeController,
+                    style: UITextStyle.body.copyWith(
+                      color: UIColors.darkGrey,
+                    ),
+                    decoration: normalTextFieldStyle.copyWith(
+                      hintText: 'أدخل كود الحسم',
+                    ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: AcceptButton(
-                text: 'تأكيد',
-                onPressed: () {
-                  cartController.checkCouponCode();
-                },
+              Expanded(
+                flex: 2,
+                child: Obx(
+                  () {
+                    return AcceptButton(
+                      text: 'تأكيد',
+                      onPressed: () {
+                        cartController.checkCouponCode();
+                      },
+                      isLoading: cartController.checkingCoupon.value,
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
