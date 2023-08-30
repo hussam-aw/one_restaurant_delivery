@@ -12,13 +12,18 @@ class PlaceController extends GetxController {
   TextEditingController placeNameController = TextEditingController();
   BoxClient boxClient = BoxClient();
   final placesController = Get.find<PlacesController>();
+  var loadingLocation = false.obs;
+  var savingPlace = false.obs;
 
   Future<void> getCurrentLocationData() async {
+    loadingLocation.value = true;
     currentLocationData = await locationHelper.getCurrentLocation();
+    loadingLocation.value = false;
   }
 
   Future<void> createPlace() async {
     if (placeNameController.text.isNotEmpty) {
+      savingPlace.value = true;
       Place place = Place(
         name: placeNameController.text,
         lat: currentLocationData!['lat'],
@@ -27,6 +32,7 @@ class PlaceController extends GetxController {
       placesController.pinnedPlaces.add(place);
       await boxClient.addToPinnedPlaces(placesController.pinnedPlaces);
       await placesController.getPinnedPlaces();
+      savingPlace.value = false;
       Get.back();
       SnackBars.showSuccess('تم تثبيت المكان بنجاح');
     } else {
