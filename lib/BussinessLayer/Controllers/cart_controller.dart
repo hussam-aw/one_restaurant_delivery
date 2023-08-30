@@ -21,6 +21,7 @@ class CartController extends GetxController {
   num netAmount = 0.0;
   var mealsController = Get.find<MealsController>();
   CartRepo cartRepo = CartRepo();
+  var checkingCoupon = false.obs;
 
   Future<void> getCartItems() async {
     cartItems = await boxClient.getCartItems();
@@ -85,10 +86,12 @@ class CartController extends GetxController {
 
   Future<void> checkCouponCode() async {
     String code = couponCodeController.text;
+    checkingCoupon.value = true;
     Coupon? coupon = await cartRepo.getCouponData(code);
     if (coupon != null && coupon.matched != 0) {
       applyCouponData(coupon.data!);
     } else {
+      checkingCoupon.value = false;
       Get.back();
       SnackBars.showError('كود الحسم خاطئ');
     }
@@ -109,6 +112,7 @@ class CartController extends GetxController {
     } else {
       discountAmount = couponData.amount;
     }
+    checkingCoupon.value = false;
     calc();
     Get.back();
   }
