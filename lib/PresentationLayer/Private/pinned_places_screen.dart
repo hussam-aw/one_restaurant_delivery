@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/places_controller.dart';
+import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Places/add_location_bottom_sheet.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Places/place_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/add_floating_button.dart';
@@ -14,6 +15,25 @@ class PinnedPlacesScreen extends StatelessWidget {
   PinnedPlacesScreen({super.key});
 
   final placesController = Get.find<PlacesController>();
+
+  Widget buildPlacesList(places) {
+    return places.isEmpty
+        ? const Center(
+            child: Text(
+              'لا يوجد أماكن مثبتة ',
+              style: UITextStyle.medium,
+            ),
+          )
+        : ListView.separated(
+            itemBuilder: (context, index) {
+              return PlaceBox(
+                place: places[index],
+              );
+            },
+            separatorBuilder: (context, index) => spacerHeight(),
+            itemCount: places.length,
+          );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,19 +50,13 @@ class PinnedPlacesScreen extends StatelessWidget {
               const PageTitle(title: 'الأماكن المثبتة'),
               spacerHeight(),
               Expanded(
-                child: Obx(() {
-                  return placesController.isLoadingPinnedPlaces.value
-                      ? Center(child: loadingItem(width: 100, isWhite: true))
-                      : ListView.separated(
-                          itemBuilder: (context, index) {
-                            return PlaceBox(
-                              place: placesController.pinnedPlaces[index],
-                            );
-                          },
-                          separatorBuilder: (context, index) => spacerHeight(),
-                          itemCount: placesController.pinnedPlaces.length,
-                        );
-                }),
+                child: Obx(
+                  () {
+                    return placesController.isLoadingPinnedPlaces.value
+                        ? Center(child: loadingItem(width: 100, isWhite: true))
+                        : buildPlacesList(placesController.pinnedPlaces);
+                  },
+                ),
               )
             ],
           ),

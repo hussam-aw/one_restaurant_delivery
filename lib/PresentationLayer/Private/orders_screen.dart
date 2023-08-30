@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/orders_controllers.dart';
+import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Orders/order_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/page_title.dart';
@@ -12,6 +13,25 @@ class OrdersScreen extends StatelessWidget {
   OrdersScreen({super.key});
 
   final ordersController = Get.find<OrdersController>();
+
+  Widget buildOrdersList(orders) {
+    return orders.isEmpty
+        ? const Center(
+            child: Text(
+              'لا يوجد طلبات ',
+              style: UITextStyle.medium,
+            ),
+          )
+        : ListView.separated(
+            itemBuilder: (context, index) {
+              return OrderBox(
+                order: orders[index],
+              );
+            },
+            separatorBuilder: (context, index) => spacerHeight(),
+            itemCount: orders.length,
+          );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,19 +48,7 @@ class OrdersScreen extends StatelessWidget {
               const PageTitle(title: 'الطلبات'),
               spacerHeight(),
               Expanded(
-                child: GetBuilder(
-                    init: ordersController,
-                    builder: (_) {
-                      return ListView.separated(
-                        itemBuilder: (context, index) {
-                          return OrderBox(
-                            order: ordersController.orders[index],
-                          );
-                        },
-                        separatorBuilder: (context, index) => spacerHeight(),
-                        itemCount: ordersController.orders.length,
-                      );
-                    }),
+                child: buildOrdersList(ordersController.orders),
               ),
             ],
           ),
