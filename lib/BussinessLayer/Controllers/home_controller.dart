@@ -40,6 +40,6 @@ class HomeController extends GetxController {
     await favouriteController.getFavouriteMeals();
     await placesController.getPinnedPlaces();
     complaintsController.getComplaints();
-    //ordersController.getOrders();
+    ordersController.getOrders();
   }
 }

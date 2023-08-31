@@ -31,7 +31,7 @@ class Order {
     return Order(
       id: map['id'] as int,
       userId: map['user_id'] ?? 1,
-      total: num.parse(map['total'] ?? "0.0"),
+      total: map['total'],
       statusId: map['status_id'] ?? 0,
       notes: map['notes'] ?? "",
       discount: map['discount'] ?? 0.0,
