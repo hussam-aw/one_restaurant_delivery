@@ -8,4 +8,5 @@ class AppRoutes {
   static const favoritesScreen = "/favoritesScreen";
   static const complaintsScreen = "/complaintsScreen";
   static const pinnedPlacesScreen = "/pinnedPlacesScreen";
+  static const searchScreen = "/searchScreen";
 }
