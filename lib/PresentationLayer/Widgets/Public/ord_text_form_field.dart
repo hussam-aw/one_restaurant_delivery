@@ -5,35 +5,40 @@ import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 class OrdTextFormField extends StatelessWidget {
   const OrdTextFormField({
     super.key,
-    required this.controller,
+    this.controller,
     this.hintText = '',
     this.keyboardType = TextInputType.name,
     this.obsecureText = false,
     this.style = UITextStyle.body,
     this.textAlign = TextAlign.center,
+    this.autofocus = false,
     this.maxLines = 1,
     this.readOnly = false,
     this.formatters,
     this.suffix,
+    this.onTap,
     this.onChanged,
   });
 
   final String hintText;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputType keyboardType;
   final bool obsecureText;
   final TextStyle style;
   final TextAlign textAlign;
+  final bool autofocus;
   final int maxLines;
   final bool readOnly;
   final List<TextInputFormatter>? formatters;
   final Widget? suffix;
-
+  final Function()? onTap;
   final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTap: onTap,
+      autofocus: autofocus,
       inputFormatters: formatters,
       readOnly: readOnly,
       controller: controller,
