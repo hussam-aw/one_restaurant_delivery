@@ -5,7 +5,6 @@ import 'package:one_restaurant_delivery/DataAccesslayer/Clients/box_client.dart'
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/cart_item.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/coupon.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/coupon_data.dart';
-import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Repositories/cart_repo.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/snackbars.dart';
 
@@ -22,18 +21,18 @@ class CartController extends GetxController {
   var mealsController = Get.find<MealsController>();
   CartRepo cartRepo = CartRepo();
   var checkingCoupon = false.obs;
+  TextEditingController qtyController = TextEditingController();
 
   Future<void> getCartItems() async {
     cartItems = await boxClient.getCartItems();
     calc();
-    update();
   }
 
-  Future<void> addToCart(Meal meal) async {
-    var cartItemIndex = getCartItemIndex(meal.id);
+  Future<void> addToCart(int mealId) async {
+    var cartItemIndex = getCartItemIndex(mealId);
     if (cartItemIndex == null) {
       var cartItem = CartItem(
-          mealId: meal.id,
+          mealId: mealId,
           qty: itemQty,
           specialOrder: specialOrderController.text);
       adding.value = true;
@@ -46,6 +45,29 @@ class CartController extends GetxController {
     } else {
       SnackBars.showWarning('الوجبة موجودة في السلة');
     }
+  }
+
+  Future<void> updateCartItemQty(int mealId) async {
+    if (qtyController.text.isNotEmpty) {
+      int newQty = int.parse(qtyController.text);
+      int? itemIndex = getCartItemIndex(mealId);
+      cartItems[itemIndex!].qty = newQty;
+      await syncCart();
+      calc();
+      Get.back();
+      SnackBars.showSuccess('تم تعديل كمية الوجبة');
+    } else {
+      SnackBars.showWarning('يرجى ادخال الحقول المطلوبة');
+    }
+  }
+
+  Future<void> removeFromCart(int mealId) async {
+    //cartItems.removeWhere((item) => item.mealId == mealId);
+    int? itemIndex = getCartItemIndex(mealId);
+    cartItems.removeAt(itemIndex!);
+    await syncCart();
+    calc();
+    SnackBars.showSuccess('تمت ازالة الوجبة');
   }
 
   int? getCartItemIndex(mealId) {
@@ -82,6 +104,12 @@ class CartController extends GetxController {
     }
     netAmount = totalAmount - discountAmount;
     update();
+  }
+
+  Future<void> clearCart() async {
+    cartItems.clear();
+    await syncCart();
+    calc();
   }
 
   Future<void> checkCouponCode() async {
