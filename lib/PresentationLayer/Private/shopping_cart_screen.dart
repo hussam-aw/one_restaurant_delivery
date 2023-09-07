@@ -32,41 +32,43 @@ class ShoppingCartScreen extends StatelessWidget {
         drawer: const OrdDrawer(),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15),
-          child: Column(
-            children: [
-              Expanded(
-                flex: 7,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
-                      const PageTitle(title: 'سلة الشراء'),
-                      spacerHeight(),
-                      Expanded(
-                        flex: 3,
-                        child: ListView.separated(
-                          itemBuilder: (context, index) {
-                            return CartItemBox(
-                              cartItem: cartController.cartItems[index],
-                              meal: mealsController.getMealFromId(
-                                  cartController.cartItems[index].mealId)!,
-                            );
-                          },
-                          separatorBuilder: (context, index) => spacerHeight(),
-                          itemCount: cartController.cartItems.length,
+          child: GetBuilder<CartController>(
+              init: cartController,
+              builder: (_) {
+                return Column(
+                  children: [
+                    Expanded(
+                      flex: 7,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          children: [
+                            const PageTitle(title: 'سلة الشراء'),
+                            spacerHeight(),
+                            Expanded(
+                              flex: 3,
+                              child: ListView.separated(
+                                itemBuilder: (context, index) {
+                                  return CartItemBox(
+                                    cartItem: cartController.cartItems[index],
+                                    meal: mealsController.getMealFromId(
+                                        cartController
+                                            .cartItems[index].mealId)!,
+                                  );
+                                },
+                                separatorBuilder: (context, index) =>
+                                    spacerHeight(),
+                                itemCount: cartController.cartItems.length,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              spacerHeight(height: 22),
-              Expanded(
-                flex: 2,
-                child: GetBuilder<CartController>(
-                    init: cartController,
-                    builder: (_) {
-                      return CartSummaryBox(
+                    ),
+                    spacerHeight(height: 22),
+                    Expanded(
+                      flex: 2,
+                      child: CartSummaryBox(
                         items: [
                           CartSummaryItem(
                             itemTitle: 'الإجمالي',
@@ -84,47 +86,48 @@ class ShoppingCartScreen extends StatelessWidget {
                             itemAmount: '${cartController.netAmount}\$',
                           )
                         ],
-                      );
-                    }),
-              ),
-              spacerHeight(height: 22),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    children: [
+                      ),
+                    ),
+                    spacerHeight(height: 22),
+                    if (cartController.cartItems.isNotEmpty)
                       Expanded(
-                        child: AcceptButton(
-                          onPressed: () {
-                            Get.bottomSheet(
-                              ApplyCouponBottomSheet(),
-                            );
-                          },
-                          backgroundColor: UIColors.white,
-                          textStyle: UITextStyle.medium.copyWith(
-                            color: UIColors.red,
+                        flex: 2,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: AcceptButton(
+                                  onPressed: () {
+                                    Get.bottomSheet(
+                                      ApplyCouponBottomSheet(),
+                                    );
+                                  },
+                                  backgroundColor: UIColors.white,
+                                  textStyle: UITextStyle.medium.copyWith(
+                                    color: UIColors.red,
+                                  ),
+                                  text: 'تطبيق كود حسم',
+                                ),
+                              ),
+                              spacerHeight(),
+                              Expanded(
+                                child: AcceptButton(
+                                  onPressed: () {
+                                    Get.bottomSheet(
+                                      SendOrderBottomSheet(),
+                                    );
+                                  },
+                                  text: 'إرسال الطلب',
+                                ),
+                              ),
+                            ],
                           ),
-                          text: 'تطبيق كود حسم',
                         ),
                       ),
-                      spacerHeight(),
-                      Expanded(
-                        child: AcceptButton(
-                          onPressed: () {
-                            Get.bottomSheet(
-                              SendOrderBottomSheet(),
-                            );
-                          },
-                          text: 'إرسال الطلب',
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+                  ],
+                );
+              }),
         ),
       ),
     );
