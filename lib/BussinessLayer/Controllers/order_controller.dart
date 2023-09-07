@@ -41,6 +41,7 @@ class OrderController extends GetxController {
     loading.value = false;
     if (orderCreationStatus == true) {
       await ordersController.getOrders();
+      await cartConroller.clearCart();
       Get.back();
       SnackBars.showSuccess('تم انشاء الطلب');
     } else {
