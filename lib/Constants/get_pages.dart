@@ -6,6 +6,7 @@ import 'package:one_restaurant_delivery/PresentationLayer/Private/orders_screen.
 import 'package:one_restaurant_delivery/PresentationLayer/Private/pinned_places_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/shopping_cart_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/home_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/search_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/splash_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/meal_screen.dart';
 
@@ -47,5 +48,9 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: AppRoutes.pinnedPlacesScreen,
     page: () => PinnedPlacesScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.searchScreen,
+    page: () => SearchScreen(),
   ),
 ];
