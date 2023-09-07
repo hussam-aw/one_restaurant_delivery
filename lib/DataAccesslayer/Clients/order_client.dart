@@ -6,7 +6,7 @@ import 'package:one_restaurant_delivery/Constants/api_links.dart';
 class OrderClient {
   Future<dynamic> getOrders() async {
     var response = await http.get(Uri.parse('$baseUrl$ordersLink/1'));
-    print(response.body);
+
     if (response.statusCode == 200) {
       return response.body;
     } else {

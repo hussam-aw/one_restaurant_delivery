@@ -203,7 +203,7 @@ class MealScreen extends StatelessWidget {
                     return AcceptButton(
                       text: 'إضافة للسلة',
                       onPressed: () {
-                        cartController.addToCart(meal);
+                        cartController.addToCart(meal.id);
                       },
                       isLoading: cartController.adding.value,
                     );

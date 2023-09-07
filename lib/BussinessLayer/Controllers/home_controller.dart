@@ -7,9 +7,6 @@ import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_control
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/orders_controllers.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/places_controller.dart';
-import 'package:one_restaurant_delivery/DataAccesslayer/Models/Category.dart';
-import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
-import 'package:one_restaurant_delivery/DataAccesslayer/Models/offer.dart';
 
 class HomeController extends GetxController {
   var offersController = Get.put(OffersController());
@@ -21,16 +18,6 @@ class HomeController extends GetxController {
   final placesController = Get.put(PlacesController());
   final ordersController = Get.put(OrdersController());
 
-  List<Meal> meals = [];
-  List<Offer> offers = [];
-  List<Category> categories = [];
-
-  @override
-  onInit() async {
-    fetchHomeData();
-    super.onInit();
-  }
-
   void fetchHomeData() async {
     offersController.getOffers();
     categoriesController.getCategories();
@@ -41,5 +28,11 @@ class HomeController extends GetxController {
     await placesController.getPinnedPlaces();
     complaintsController.getComplaints();
     ordersController.getOrders();
+  }
+
+  @override
+  onInit() async {
+    fetchHomeData();
+    super.onInit();
   }
 }
