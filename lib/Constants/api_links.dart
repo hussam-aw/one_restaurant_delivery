@@ -10,3 +10,5 @@ const complaintsLink = "/complaints";
 const complaintLink = "/complaint";
 const ordersLink = "/orders";
 const orderLink = "/order";
+const initialSettingsLink = "/settings";
+const notificationsLink = "/notifications";
