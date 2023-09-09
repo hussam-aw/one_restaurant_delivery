@@ -42,10 +42,9 @@ class BoxClient {
   Future<List<Place>> getPinnedPlaces() async {
     var pinnedPlaces = await box.read('pinned_places');
     if (pinnedPlaces != null && pinnedPlaces != "") {
-      final data = pinnedPlaces.cast<Map<String, dynamic>>();
-      return data.map<Place>((json) => Place.fromJson(json)).toList();
+      //final data = pinnedPlaces.cast<Map<String, dynamic>>();
+      return pinnedPlaces.map<Place>((json) => Place.fromJson(json)).toList();
     }
-
     return [];
   }
 
