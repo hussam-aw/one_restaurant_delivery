@@ -1,14 +1,16 @@
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/complaints_screen.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Private/favorites_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/favorites_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/notifications_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/orders_screen.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Private/pinned_places_screen.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Private/shopping_cart_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/pinned_places_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Private/profile_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/shopping_cart_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/home_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/search_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/splash_screen.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Private/meal_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/meal_screen.dart';
 
 import '../PresentationLayer/Public/meals_screen.dart';
 
@@ -52,5 +54,13 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: AppRoutes.searchScreen,
     page: () => SearchScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.notificationsScreen,
+    page: () => NotificationsScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.profileScreen,
+    page: () => ProfileScreen(),
   ),
 ];
