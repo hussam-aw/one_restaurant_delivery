@@ -7,44 +7,55 @@ import 'package:one_restaurant_delivery/DataAccesslayer/Models/place.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_width.dart';
 
 class PlaceBox extends StatelessWidget {
-  const PlaceBox({super.key, required this.place});
+  const PlaceBox({
+    super.key,
+    required this.place,
+    this.selectionMode = false,
+    this.onTap,
+  });
 
   final Place place;
+  final bool selectionMode;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        borderRadius: raduis22,
-        color: UIColors.lightDeepBlue,
-      ),
-      child: Row(
-        children: [
-          const Icon(
-            FontAwesomeIcons.locationDot,
-            size: 30,
-            color: UIColors.red,
-          ),
-          spacerWidth(width: 22),
-          Expanded(
-            child: Text(
-              place.name,
-              style: UITextStyle.body.copyWith(
-                fontWeight: FontWeight.bold,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+          borderRadius: raduis22,
+          color: UIColors.lightDeepBlue,
+        ),
+        child: Row(
+          children: [
+            const Icon(
+              FontAwesomeIcons.locationDot,
+              size: 30,
+              color: UIColors.red,
+            ),
+            spacerWidth(width: 22),
+            Expanded(
+              child: Text(
+                place.name,
+                style: UITextStyle.body.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          spacerWidth(),
-          InkWell(
-            onTap: () {},
-            child: const Icon(
-              FontAwesomeIcons.minus,
-              size: 35,
-              color: UIColors.darkGrey,
-            ),
-          ),
-        ],
+            spacerWidth(),
+            if (!selectionMode)
+              InkWell(
+                onTap: () {},
+                child: const Icon(
+                  FontAwesomeIcons.minus,
+                  size: 35,
+                  color: UIColors.darkGrey,
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }
