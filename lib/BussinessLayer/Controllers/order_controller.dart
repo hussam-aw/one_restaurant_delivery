@@ -26,7 +26,7 @@ class OrderController extends GetxController {
     }
   }
 
-  Future<void> createOrder(selectedPlace) async {
+  Future<void> createOrder(selectedPlaceCoordinate) async {
     getCartItemsMap();
     loading.value = true;
     bool orderCreationStatus = await orderRepo.createOrder(
@@ -34,8 +34,8 @@ class OrderController extends GetxController {
       cartConroller.discountAmount != 0.0 ? 1 : 0,
       cartConroller.discountAmount,
       "address",
-      selectedPlace!.lat,
-      selectedPlace!.long,
+      selectedPlaceCoordinate!.lat,
+      selectedPlaceCoordinate!.long,
       "notes",
     );
     loading.value = false;
