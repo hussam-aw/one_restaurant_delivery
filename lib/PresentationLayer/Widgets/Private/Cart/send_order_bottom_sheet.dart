@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/order_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/places_controller.dart';
+import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_styles.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_height.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_width.dart';
+import 'package:one_restaurant_delivery/main.dart';
 
 class SendOrderBottomSheet extends StatelessWidget {
   SendOrderBottomSheet({super.key});
@@ -17,7 +18,7 @@ class SendOrderBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Get.width * .7,
+      height: Get.width * .6,
       decoration: const BoxDecoration(
         borderRadius: raduis32Top,
         color: UIColors.white,
@@ -35,28 +36,44 @@ class SendOrderBottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-            spacerWidth(),
+            spacerHeight(height: 35),
             Expanded(
               flex: 3,
-              child: Align(
-                child: ListView.separated(
-                  itemBuilder: (contex, index) {
-                    return InkWell(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    InkWell(
                       onTap: () {
-                        orderController
-                            .createOrder(placesController.pinnedPlaces[index]);
+                        orderController.createOrder(MyApp.currentLocationData);
                       },
                       child: Text(
-                        placesController.pinnedPlaces[index].name,
+                        'الموقع الحالي',
                         textAlign: TextAlign.center,
                         style: UITextStyle.title.copyWith(
                           color: UIColors.darkGrey,
                         ),
                       ),
-                    );
-                  },
-                  separatorBuilder: (contex, index) => spacerHeight(height: 20),
-                  itemCount: placesController.pinnedPlaces.length,
+                    ),
+                    spacerHeight(height: 25),
+                    InkWell(
+                      onTap: () async {
+                        var place = await Get.toNamed(
+                          AppRoutes.pinnedPlacesScreen,
+                          arguments: 'selection',
+                        );
+                        if (place != null) {
+                          orderController.createOrder(place.coordinates);
+                        }
+                      },
+                      child: Text(
+                        'الأماكن المثبتة',
+                        textAlign: TextAlign.center,
+                        style: UITextStyle.title.copyWith(
+                          color: UIColors.darkGrey,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
