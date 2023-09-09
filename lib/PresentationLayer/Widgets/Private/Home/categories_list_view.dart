@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/Category.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/category_box.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Home/category_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_width.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Shimmers/category_box_shimmer.dart';
 

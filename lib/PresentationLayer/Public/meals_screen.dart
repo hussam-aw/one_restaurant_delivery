@@ -4,7 +4,7 @@ import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_co
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Meals/meal_box.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Meals/meal_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/loading_item.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_bottom_navigation_bar.dart';

@@ -4,8 +4,8 @@ import 'package:one_restaurant_delivery/BussinessLayer/Controllers/list_search_c
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/category_box.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Meals/meal_box.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Home/category_box.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Meals/meal_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_drawer.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_image_container.dart';

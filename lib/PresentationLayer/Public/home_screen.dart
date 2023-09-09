@@ -6,8 +6,8 @@ import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_co
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/categories_list_view.dart';
-import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/featured_meals_list_view.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Home/categories_list_view.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Home/featured_meals_list_view.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_bottom_navigation_bar.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_drawer.dart';

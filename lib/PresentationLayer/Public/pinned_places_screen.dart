@@ -15,6 +15,7 @@ class PinnedPlacesScreen extends StatelessWidget {
   PinnedPlacesScreen({super.key});
 
   final placesController = Get.find<PlacesController>();
+  final String? screenMode = Get.arguments;
 
   Widget buildPlacesList(places) {
     return places.isEmpty
@@ -28,6 +29,12 @@ class PinnedPlacesScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return PlaceBox(
                 place: places[index],
+                selectionMode: screenMode != null ? true : false,
+                onTap: screenMode != null
+                    ? () {
+                        Get.back(result: places[index]);
+                      }
+                    : null,
               );
             },
             separatorBuilder: (context, index) => spacerHeight(),
@@ -61,11 +68,13 @@ class PinnedPlacesScreen extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: AddFloatingButton(
-          onPressed: () {
-            Get.bottomSheet(AddCurrentLocationBottomSheet());
-          },
-        ),
+        floatingActionButton: screenMode != null
+            ? null
+            : AddFloatingButton(
+                onPressed: () {
+                  Get.bottomSheet(AddCurrentLocationBottomSheet());
+                },
+              ),
       ),
     );
   }
