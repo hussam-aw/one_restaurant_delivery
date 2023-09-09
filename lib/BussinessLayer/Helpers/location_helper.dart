@@ -1,12 +1,12 @@
 import 'package:location/location.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/coordinates.dart';
 
 class LocationHelper {
   Location location = Location();
 
-  Future<Map<String, double?>?> getCurrentLocation() async {
+  Future<Coordinates?> getCurrentLocation() async {
     PermissionStatus permissionGranted;
     LocationData locationData;
-    Map<String, double?> locData = {};
 
     bool serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
@@ -21,8 +21,7 @@ class LocationHelper {
     }
 
     locationData = await location.getLocation();
-    locData.addAll({'lat': locationData.latitude});
-    locData.addAll({'long': locationData.longitude});
-    return locData;
+    return Coordinates(
+        lat: locationData.latitude, long: locationData.longitude);
   }
 }
