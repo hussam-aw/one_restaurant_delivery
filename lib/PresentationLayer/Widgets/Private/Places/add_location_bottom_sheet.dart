@@ -51,19 +51,11 @@ class AddCurrentLocationBottomSheet extends StatelessWidget {
               ),
               Expanded(
                 flex: 3,
-                child: Obx(
-                  () {
-                    return AcceptButton(
-                      text: 'إضافة الموقع الحالي',
-                      onPressed: () async {
-                        await placeController.getCurrentLocationData();
-                        if (placeController.currentLocationData != null) {
-                          Get.back();
-                          Get.dialog(AddPlaceNameDialog());
-                        }
-                      },
-                      isLoading: placeController.loadingLocation.value,
-                    );
+                child: AcceptButton(
+                  text: 'إضافة الموقع الحالي',
+                  onPressed: () {
+                    Get.back();
+                    Get.dialog(AddPlaceNameDialog());
                   },
                 ),
               ),
