@@ -1,23 +1,21 @@
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/coordinates.dart';
+
 class Place {
   String name;
-  double? lat;
-  double? long;
+  Coordinates? coordinates;
 
   Place({
     required this.name,
-    required this.lat,
-    required this.long,
+    required this.coordinates,
   });
 
   factory Place.fromJson(Map<String, dynamic> json) => Place(
         name: json["name"],
-        lat: json["lat"],
-        long: json["long"],
+        coordinates: Coordinates.fromJson(json["coordinates"]),
       );
 
   Map<String, dynamic> toJson() => {
         "name": name,
-        "lat": lat,
-        "long": long,
+        "coordinates": coordinates!.toJson(),
       };
 }
