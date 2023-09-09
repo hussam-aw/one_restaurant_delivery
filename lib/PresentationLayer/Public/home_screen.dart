@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
+import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/categories_list_view.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Home/featured_meals_list_view.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/ord_appbar.dart';
@@ -28,7 +29,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeController());
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -43,8 +43,11 @@ class HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   OrdTextFormField(
-                    controller: TextEditingController(),
+                    readOnly: true,
                     hintText: 'إبحث عن وجبات , أصناف , عروض',
+                    onTap: () {
+                      Get.toNamed(AppRoutes.searchScreen);
+                    },
                   ),
                   spacerHeight(height: 25),
                   const SectionTitle(title: 'أبرز العروض'),
@@ -55,8 +58,14 @@ class HomeScreen extends StatelessWidget {
                             widgets: offersController.offers.isNotEmpty
                                 ? offersController.offers
                                     .map(
-                                      (offer) => OrdImageContainer(
-                                        imagePath: offer.image,
+                                      (offer) => InkWell(
+                                        onTap: () {
+                                          Get.toNamed(AppRoutes.mealScreen,
+                                              arguments: offer.meal);
+                                        },
+                                        child: OrdImageContainer(
+                                          imagePath: offer.image,
+                                        ),
                                       ),
                                     )
                                     .toList()
