@@ -36,7 +36,7 @@ class OrdBottomNavigationBar extends StatelessWidget {
             break;
 
           case 3:
-            //Get.toNamed(AppRoutes.notificationsScreen);
+            Get.toNamed(AppRoutes.notificationsScreen);
             break;
           case 4:
             Get.toNamed(AppRoutes.favoritesScreen);
