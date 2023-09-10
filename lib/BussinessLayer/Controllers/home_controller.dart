@@ -4,6 +4,7 @@ import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_co
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/complaints_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/favorites_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/notifications_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/offers_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/orders_controllers.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/places_controller.dart';
@@ -17,6 +18,7 @@ class HomeController extends GetxController {
   final complaintsController = Get.put(ComplaintsController());
   final placesController = Get.put(PlacesController());
   final ordersController = Get.put(OrdersController());
+  final notificationsController = Get.put(NotificationsController());
 
   void fetchHomeData() async {
     offersController.getOffers();
@@ -28,6 +30,7 @@ class HomeController extends GetxController {
     await placesController.getPinnedPlaces();
     complaintsController.getComplaints();
     ordersController.getOrders();
+    notificationsController.getNotifications();
   }
 
   @override
