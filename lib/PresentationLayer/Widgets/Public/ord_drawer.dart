@@ -34,6 +34,13 @@ class OrdDrawer extends StatelessWidget {
             )),
           ),
           DrawerListTile(
+            title: 'الملف الشخصي',
+            iconData: Icons.people,
+            onTap: () {
+              Get.toNamed(AppRoutes.profileScreen);
+            },
+          ),
+          DrawerListTile(
             title: 'الرئيسية',
             iconData: FontAwesomeIcons.house,
             onTap: () {
