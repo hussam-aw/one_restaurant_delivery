@@ -5,6 +5,7 @@ import 'package:one_restaurant_delivery/Constants/get_pages.dart';
 import 'package:one_restaurant_delivery/Constants/ui_themes.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/coordinates.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/initial_settings.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/user.dart';
 
 void main() async {
   await GetStorage.init();
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   static int bottomSelectedItem = 0;
   static Coordinates? currentLocationData;
+  static User? appUser;
   static InitialSettings? initialSettings;
 
   @override
