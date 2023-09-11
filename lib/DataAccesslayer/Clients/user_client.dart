@@ -1,1 +1,38 @@
-class UserClient {}
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:one_restaurant_delivery/Constants/api_links.dart';
+
+class UserClient {
+  Future<dynamic> registerOtp(phoneNumber) async {
+    var response = await http.post(Uri.parse("$baseUrl$sentOtpLink"),
+        body: jsonEncode(<String, dynamic>{
+          "phone": phoneNumber,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return null;
+    }
+  }
+
+  Future<dynamic> login(phoneNumber) async {
+    var response = await http.post(Uri.parse("$baseUrl$loginLink"),
+        body: jsonEncode(<String, dynamic>{
+          "phone": phoneNumber,
+        }),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        });
+    print(response.body);
+    if (response.statusCode == 200) {
+      return response.body;
+    } else {
+      return null;
+    }
+  }
+}
