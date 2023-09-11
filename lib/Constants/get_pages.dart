@@ -1,9 +1,11 @@
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/complaints_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/auth/auth_phone_code_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/favorites_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/notifications_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/orders_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/auth/otp_register_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/pinned_places_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/profile_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/shopping_cart_screen.dart';
@@ -18,6 +20,14 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: AppRoutes.splashScreen,
     page: () => SplashScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.otpRegisterScreen,
+    page: () => OtpRegisterScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.authPhoneCodeScreen,
+    page: () => AuthPhoneCodeScreen(),
   ),
   GetPage(
     name: AppRoutes.homeScreen,
