@@ -2,9 +2,32 @@ import 'package:get_storage/get_storage.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/cart_item.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/place.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/user.dart';
 
 class BoxClient {
   final box = GetStorage();
+
+  //Authentication Methods
+  Future<bool> getAuthState() async {
+    if (await box.read('ord_authed') != null) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<User> getAuthedUser() async {
+    return User.fromJson(await box.read('ord_userdata'));
+  }
+
+  Future<void> setAuthedUser(User user) async {
+    await box.write('ord_authed', true);
+    await box.write('ord_userdata', user.toJson());
+  }
+
+  Future<void> removeUserData() async {
+    await box.remove('ord_authed');
+    await box.remove('ord_userdata');
+  }
 
   // Cart Methods
   Future<List<CartItem>> getCartItems() async {
