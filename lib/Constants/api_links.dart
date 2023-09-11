@@ -12,3 +12,5 @@ const ordersLink = "/orders";
 const orderLink = "/order";
 const initialSettingsLink = "/settings";
 const notificationsLink = "/notifications";
+const sentOtpLink = "/send-otp";
+const loginLink = "/login";
