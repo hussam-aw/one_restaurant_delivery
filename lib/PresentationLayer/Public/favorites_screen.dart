@@ -40,7 +40,7 @@ class FavoritesScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: ordAppBar(),
-        drawer: const OrdDrawer(),
+        drawer: OrdDrawer(),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),

@@ -1,12 +1,12 @@
 class User {
   int id;
-  int roleId;
+  int? roleId;
   String name;
   String email;
-  String avatar;
-  String locale;
+  String? avatar;
+  String? locale;
   DateTime createdAt;
-  DateTime updatedAt;
+  DateTime? updatedAt;
   String address;
   String phone;
 
@@ -29,9 +29,11 @@ class User {
         name: json["name"],
         email: json["email"],
         avatar: json["avatar"],
-        locale: json["settings"]["locale"],
+        locale: json["settings"] != null ? json["settings"]["locale"] : null,
         createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        updatedAt: json["updated_at"] != null
+            ? DateTime.parse(json["updated_at"])
+            : null,
         address: json["address"],
         phone: json["phone"],
       );
@@ -44,7 +46,6 @@ class User {
         "avatar": avatar,
         "locale": locale,
         "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
         "address": address,
         "phone": phone,
       };

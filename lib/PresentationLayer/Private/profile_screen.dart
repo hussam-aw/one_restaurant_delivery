@@ -23,7 +23,7 @@ class ProfileScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         appBar: ordAppBar(),
-        drawer: const OrdDrawer(),
+        drawer: OrdDrawer(),
         body: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
           child: Column(

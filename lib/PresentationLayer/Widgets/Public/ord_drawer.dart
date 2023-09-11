@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/auth_controller.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/drawer_list_tile.dart';
+import 'package:one_restaurant_delivery/main.dart';
 
 import '../../../Constants/get_routes.dart';
 import '../../../Constants/ui_colors.dart';
 import '../../../Constants/ui_text_styles.dart';
 
 class OrdDrawer extends StatelessWidget {
-  const OrdDrawer({super.key});
+  OrdDrawer({super.key});
+  final authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,13 +36,14 @@ class OrdDrawer extends StatelessWidget {
               'assets/images/person.png',
             )),
           ),
-          DrawerListTile(
-            title: 'الملف الشخصي',
-            iconData: Icons.people,
-            onTap: () {
-              Get.toNamed(AppRoutes.profileScreen);
-            },
-          ),
+          if (MyApp.appUser != null)
+            DrawerListTile(
+              title: 'الملف الشخصي',
+              iconData: Icons.people,
+              onTap: () {
+                Get.toNamed(AppRoutes.profileScreen);
+              },
+            ),
           DrawerListTile(
             title: 'الرئيسية',
             iconData: FontAwesomeIcons.house,
@@ -89,6 +93,14 @@ class OrdDrawer extends StatelessWidget {
               Get.toNamed(AppRoutes.pinnedPlacesScreen);
             },
           ),
+          if (MyApp.appUser != null)
+            DrawerListTile(
+              title: 'تسجيل الخروج',
+              iconData: Icons.exit_to_app,
+              onTap: () async {
+                await authController.logout();
+              },
+            ),
         ],
       ),
     );
