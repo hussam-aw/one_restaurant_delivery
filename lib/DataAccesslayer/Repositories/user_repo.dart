@@ -24,4 +24,14 @@ class UserRepo {
     }
     return null;
   }
+
+  Future<User?> updateUserInfo(userName, email, mobilePhone, address) async {
+    var response =
+        await client.updateUserInfo(userName, email, mobilePhone, address);
+    if (response != null) {
+      final parsed = json.decode(response);
+      return User.fromJson(parsed);
+    }
+    return null;
+  }
 }
