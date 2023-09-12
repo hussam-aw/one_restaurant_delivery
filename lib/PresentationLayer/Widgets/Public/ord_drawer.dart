@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/auth_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/profile_controller.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/drawer_list_tile.dart';
 import 'package:one_restaurant_delivery/main.dart';
 
@@ -12,6 +13,7 @@ import '../../../Constants/ui_text_styles.dart';
 class OrdDrawer extends StatelessWidget {
   OrdDrawer({super.key});
   final authController = Get.put(AuthController());
+  final profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -19,23 +21,27 @@ class OrdDrawer extends StatelessWidget {
       backgroundColor: UIColors.lightDeepBlue,
       child: ListView(
         children: [
-          const UserAccountsDrawerHeader(
-            decoration: BoxDecoration(
-              color: UIColors.red,
-            ),
-            accountName: Text(
-              'Ali',
-              style: UITextStyle.title,
-            ),
-            accountEmail: Text(
-              '099999999',
-              style: UITextStyle.xsmall,
-            ),
-            currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage(
-              'assets/images/person.png',
-            )),
-          ),
+          GetBuilder<ProfileController>(
+              init: profileController,
+              builder: (context) {
+                return UserAccountsDrawerHeader(
+                  decoration: const BoxDecoration(
+                    color: UIColors.red,
+                  ),
+                  accountName: Text(
+                    MyApp.appUser!.name,
+                    style: UITextStyle.title,
+                  ),
+                  accountEmail: Text(
+                    MyApp.appUser!.phone,
+                    style: UITextStyle.xsmall,
+                  ),
+                  currentAccountPicture: CircleAvatar(
+                      backgroundImage: AssetImage(
+                    'assets/images/person.png',
+                  )),
+                );
+              }),
           if (MyApp.appUser != null)
             DrawerListTile(
               title: 'الملف الشخصي',
