@@ -25,9 +25,9 @@ class UserRepo {
     return null;
   }
 
-  Future<User?> updateUserInfo(userName, email, mobilePhone, address) async {
+  Future<User?> updateUserInfo(userName, mobilePhone, address, avatar) async {
     var response =
-        await client.updateUserInfo(userName, email, mobilePhone, address);
+        await client.updateUserInfo(userName, mobilePhone, address, avatar);
     if (response != null) {
       final parsed = json.decode(response);
       return User.fromJson(parsed);
