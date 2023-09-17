@@ -49,7 +49,7 @@ class OrdBottomNavigationBar extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 3),
             child: Icon(
               FontAwesomeIcons.house,
-              size: 28,
+              size: 24,
             ),
           ),
           label: 'الرئيسية',
@@ -59,7 +59,7 @@ class OrdBottomNavigationBar extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 3),
             child: Icon(
               FontAwesomeIcons.burger,
-              size: 28,
+              size: 24,
             ),
           ),
           label: 'الوجبات',
@@ -69,7 +69,7 @@ class OrdBottomNavigationBar extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 3),
             child: Icon(
               FontAwesomeIcons.cartShopping,
-              size: 28,
+              size: 24,
             ),
           ),
           label: 'سلة الشراء',
@@ -79,7 +79,7 @@ class OrdBottomNavigationBar extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 3),
             child: Icon(
               FontAwesomeIcons.bell,
-              size: 28,
+              size: 24,
             ),
           ),
           label: 'الإشعارات',
@@ -89,7 +89,7 @@ class OrdBottomNavigationBar extends StatelessWidget {
             padding: EdgeInsets.only(bottom: 3),
             child: Icon(
               FontAwesomeIcons.heart,
-              size: 28,
+              size: 24,
             ),
           ),
           label: 'المفضلة',
