@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/profile_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/profile_screen_controller.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/accept_button.dart';
@@ -19,6 +22,7 @@ class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
 
   final profileController = Get.find<ProfileController>();
+  final profileScreenController = Get.put(ProfileScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -52,17 +56,33 @@ class ProfileScreen extends StatelessWidget {
                                   clipBehavior: Clip.none,
                                   fit: StackFit.expand,
                                   children: [
-                                    const CircleAvatar(
-                                      backgroundImage: AssetImage(
-                                        'assets/images/person.png',
-                                      ),
-                                    ),
+                                    Obx(() {
+                                      return CircleAvatar(
+                                          backgroundColor: UIColors.lightGrey,
+                                          backgroundImage: profileScreenController
+                                                  .selectedUserImage
+                                                  .value
+                                                  .isNotEmpty
+                                              ? FileImage(File(
+                                                  profileScreenController
+                                                      .selectedUserImage.value))
+                                              : AssetImage(
+                                                      'assets/images/person.png')
+                                                  as ImageProvider);
+                                    }),
                                     Positioned(
                                       bottom: -10,
                                       left: 0,
                                       right: -65,
                                       child: OrdIconButton(
-                                        onPressed: () {},
+                                        onPressed: () async {
+                                          await profileScreenController
+                                              .getSelectedUserImage();
+                                          profileController
+                                              .setSelectedUserImagePath(
+                                                  profileScreenController
+                                                      .selectedUserImage.value);
+                                        },
                                         circleShape: true,
                                         icon: const Icon(
                                           FontAwesomeIcons.solidPenToSquare,
@@ -93,13 +113,6 @@ class ProfileScreen extends StatelessWidget {
                             OrdTextFormField(
                               controller: profileController.userNameController,
                               hintText: 'أدخل اسم المستخدم',
-                            ),
-                            spacerHeight(height: 22),
-                            const SectionTitle(title: 'الايميل'),
-                            spacerHeight(),
-                            OrdTextFormField(
-                              controller: profileController.emailController,
-                              hintText: 'أدخل الايميل',
                             ),
                             spacerHeight(height: 22),
                             const SectionTitle(title: 'رقم الموبايل'),
