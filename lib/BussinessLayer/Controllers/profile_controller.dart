@@ -8,12 +8,16 @@ import 'package:one_restaurant_delivery/main.dart';
 
 class ProfileController extends GetxController {
   TextEditingController userNameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  String selectedUserImagePath = '';
   UserRepo userRepo = UserRepo();
   BoxClient client = BoxClient();
   var isLoading = false.obs;
+
+  void setSelectedUserImagePath(path) {
+    selectedUserImagePath = path;
+  }
 
   void setUserName(name) {
     if (name.isNotEmpty) {
@@ -25,18 +29,6 @@ class ProfileController extends GetxController {
 
   String getUserName() {
     return userNameController.value.text;
-  }
-
-  void setEmail(email) {
-    if (email.isNotEmpty) {
-      emailController.value = TextEditingValue(text: email);
-    } else {
-      emailController.clear();
-    }
-  }
-
-  String getEmail() {
-    return emailController.value.text;
   }
 
   void setMobilePhone(mobilePhone) {
@@ -66,12 +58,10 @@ class ProfileController extends GetxController {
   void setUserDetails(User? user) {
     if (user != null) {
       setUserName(user.name);
-      setEmail(user.email);
       setMobilePhone(user.phone);
       setAddress(user.address);
     } else {
       setUserName('');
-      setEmail('');
       setMobilePhone('');
       setAddress('');
     }
@@ -79,16 +69,16 @@ class ProfileController extends GetxController {
 
   Future<void> updateProfile() async {
     String userName = getUserName();
-    String email = getEmail();
     String mobilePhone = getMobilePhone();
     String address = getAddress();
-    if (userName.isNotEmpty &&
-        email.isNotEmpty &&
-        mobilePhone.isNotEmpty &&
-        address.isNotEmpty) {
+    if (userName.isNotEmpty && mobilePhone.isNotEmpty && address.isNotEmpty) {
       isLoading.value = true;
-      var user =
-          await userRepo.updateUserInfo(userName, email, mobilePhone, address);
+      var user = await userRepo.updateUserInfo(
+        userName,
+        mobilePhone,
+        address,
+        selectedUserImagePath,
+      );
       isLoading.value = false;
       if (user != null) {
         MyApp.appUser = user;
