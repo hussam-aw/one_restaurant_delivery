@@ -1,9 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/cart_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/order_controller.dart';
 import 'package:one_restaurant_delivery/Constants/ui_colors.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/order.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/apply_coupon_bottom_sheet.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_item_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Cart/cart_summary_box.dart';
@@ -21,9 +25,13 @@ class ShoppingCartScreen extends StatelessWidget {
 
   final cartController = Get.put(CartController());
   final mealsController = Get.find<MealsController>();
+  final orderController = Get.put(OrderController());
+
+  Order? order = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    cartController.setCartDetails(order);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
@@ -112,14 +120,25 @@ class ShoppingCartScreen extends StatelessWidget {
                               ),
                               spacerHeight(),
                               Expanded(
-                                child: AcceptButton(
-                                  onPressed: () {
-                                    Get.bottomSheet(
-                                      SendOrderBottomSheet(),
-                                    );
-                                  },
-                                  text: 'إرسال الطلب',
-                                ),
+                                child: Obx(() {
+                                  return AcceptButton(
+                                    onPressed: () {
+                                      if (order != null) {
+                                        orderController.updateOrder(order!);
+                                      } else {
+                                        Get.bottomSheet(
+                                          SendOrderBottomSheet(),
+                                        );
+                                      }
+                                    },
+                                    text: order != null
+                                        ? 'تعديل الطلب'
+                                        : 'إرسال الطلب',
+                                    isLoading: order != null
+                                        ? orderController.loading.value
+                                        : false,
+                                  );
+                                }),
                               ),
                             ],
                           ),
