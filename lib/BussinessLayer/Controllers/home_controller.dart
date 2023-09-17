@@ -25,7 +25,7 @@ class HomeController extends GetxController {
     categoriesController.getCategories();
     mealsController.getFeaturedMeals();
     await mealsController.getMeals();
-    await cartController.getCartItems();
+    await cartController.getCartItemsFromStorage();
     await favouriteController.getFavouriteMeals();
     await placesController.getPinnedPlaces();
     complaintsController.getComplaints();
