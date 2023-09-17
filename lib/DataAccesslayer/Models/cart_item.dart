@@ -1,23 +1,27 @@
 class CartItem {
   int mealId;
   int qty;
-  String specialOrder;
+  num total;
+  String? specialOrder;
 
   CartItem({
     required this.mealId,
     required this.qty,
+    required this.total,
     required this.specialOrder,
   });
 
   factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
-        mealId: json["mealId"],
-        qty: json["qty"],
-        specialOrder: json["specialOrder"],
+        mealId: json["product_id"],
+        qty: json["quantity"],
+        total: json['total_price'],
+        specialOrder: json["special_order"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {
-        "mealId": mealId,
-        "qty": qty,
-        "specialOrder": specialOrder,
+        "product_id": mealId,
+        "quantity": qty,
+        "total_price": total,
+        "special_order": specialOrder,
       };
 }
