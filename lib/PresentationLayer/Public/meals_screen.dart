@@ -1,8 +1,12 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/categories_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
+import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_screen_controller.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/Category.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Meals/meal_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/loading_item.dart';
@@ -19,6 +23,8 @@ class MealsScreen extends StatelessWidget {
 
   final categoriesController = Get.find<CategoriesController>();
   final mealsController = Get.find<MealsController>();
+  final mealsScreenController = Get.put(MealsScreenController());
+  Category? category = Get.arguments;
 
   Widget buildMealsList(List<Meal> meals) {
     return meals.isEmpty
@@ -39,6 +45,7 @@ class MealsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    mealsScreenController.setInitialScreenState(category);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
