@@ -5,6 +5,7 @@ import 'package:one_restaurant_delivery/DataAccesslayer/Clients/box_client.dart'
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/cart_item.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/coupon.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/coupon_data.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/order.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Repositories/cart_repo.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/snackbars.dart';
 
@@ -23,7 +24,7 @@ class CartController extends GetxController {
   var checkingCoupon = false.obs;
   TextEditingController qtyController = TextEditingController();
 
-  Future<void> getCartItems() async {
+  Future<void> getCartItemsFromStorage() async {
     cartItems = await boxClient.getCartItems();
     calc();
   }
@@ -34,6 +35,7 @@ class CartController extends GetxController {
       var cartItem = CartItem(
           mealId: mealId,
           qty: itemQty,
+          total: mealsController.getMealFromId(mealId)!.price * itemQty,
           specialOrder: specialOrderController.text);
       adding.value = true;
       cartItems.add(cartItem);
@@ -143,5 +145,12 @@ class CartController extends GetxController {
     checkingCoupon.value = false;
     calc();
     Get.back();
+  }
+
+  void setCartDetails(Order? order) {
+    if (order != null) {
+      cartItems = order.details;
+      calc();
+    }
   }
 }
