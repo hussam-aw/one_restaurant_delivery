@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/cart_item.dart';
 
 class Order {
   final int id;
@@ -11,6 +11,7 @@ class Order {
   final String address;
   final num lat;
   final num long;
+  List<CartItem> details;
   final String createdAt;
 
   Order({
@@ -24,6 +25,7 @@ class Order {
     required this.address,
     required this.lat,
     required this.long,
+    required this.details,
     required this.createdAt,
   });
 
@@ -39,6 +41,7 @@ class Order {
       address: map['address'] ?? "",
       lat: map['lat'] ?? 0.0,
       long: map['long'] ?? 0.0,
+      details: getDetailsList(map['details']),
       createdAt: map['created_at'] ?? "",
     );
   }
@@ -57,6 +60,13 @@ class Order {
     };
   }
 
-  factory Order.fromJson(String source) =>
-      Order.fromMap(json.decode(source) as Map<String, dynamic>);
+  static List<CartItem> getDetailsList(details) {
+    List<CartItem> result = [];
+    if (details != null) {
+      for (int i = 0; i < details.length; i++) {
+        result.add(CartItem.fromJson(details[i]));
+      }
+    }
+    return result;
+  }
 }
