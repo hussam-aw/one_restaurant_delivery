@@ -37,9 +37,11 @@ class OrdDrawer extends StatelessWidget {
                     style: UITextStyle.xsmall,
                   ),
                   currentAccountPicture: CircleAvatar(
-                      backgroundImage: AssetImage(
-                    'assets/images/person.png',
-                  )),
+                    backgroundColor: UIColors.lightGrey,
+                    backgroundImage: AssetImage(
+                      'assets/images/person.png',
+                    ),
+                  ),
                 );
               }),
           if (MyApp.appUser != null)
@@ -61,7 +63,7 @@ class OrdDrawer extends StatelessWidget {
             title: 'التصنيفات',
             iconData: Icons.menu_outlined,
             onTap: () {
-              Get.toNamed(AppRoutes.mealScreen, arguments: 0);
+              Get.toNamed(AppRoutes.categoriesScreen, arguments: 0);
             },
           ),
           DrawerListTile(
