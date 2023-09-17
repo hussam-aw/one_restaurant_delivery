@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/orders_controllers.dart';
+import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/Constants/ui_text_styles.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Private/Orders/order_box.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/loading_item.dart';
@@ -27,6 +28,12 @@ class OrdersScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return OrderBox(
                 order: orders[index],
+                editOnPressed: () {
+                  Get.toNamed(
+                    AppRoutes.shoppingCartScreen,
+                    arguments: orders[index],
+                  );
+                },
               );
             },
             separatorBuilder: (context, index) => spacerHeight(),
