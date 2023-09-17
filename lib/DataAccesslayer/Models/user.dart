@@ -2,8 +2,7 @@ class User {
   int id;
   int? roleId;
   String name;
-  String email;
-  String? avatar;
+  String avatar;
   String? locale;
   DateTime createdAt;
   DateTime? updatedAt;
@@ -14,7 +13,6 @@ class User {
     required this.id,
     required this.roleId,
     required this.name,
-    required this.email,
     required this.avatar,
     required this.locale,
     required this.createdAt,
@@ -27,7 +25,6 @@ class User {
         id: json["id"],
         roleId: json["role_id"],
         name: json["name"],
-        email: json["email"],
         avatar: json["avatar"],
         locale: json["settings"] != null ? json["settings"]["locale"] : null,
         createdAt: DateTime.parse(json["created_at"]),
@@ -42,7 +39,6 @@ class User {
         "id": id,
         "role_id": roleId,
         "name": name,
-        "email": email,
         "avatar": avatar,
         "locale": locale,
         "created_at": createdAt.toIso8601String(),
