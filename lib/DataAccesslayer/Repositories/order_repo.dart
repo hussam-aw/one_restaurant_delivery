@@ -24,4 +24,14 @@ class OrderRepo {
     }
     return false;
   }
+
+  Future<bool> updateOrder(
+      orderId, details, isDiscount, discount, address, lat, long, notes) async {
+    var response = await client.updateOrder(
+        orderId, details, isDiscount, discount, address, lat, long, notes);
+    if (response != "") {
+      return true;
+    }
+    return false;
+  }
 }

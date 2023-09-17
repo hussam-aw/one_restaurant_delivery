@@ -3,6 +3,7 @@ import 'package:one_restaurant_delivery/BussinessLayer/Controllers/cart_controll
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/meals_controller.dart';
 import 'package:one_restaurant_delivery/BussinessLayer/Controllers/orders_controllers.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/cart_item.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/order.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Repositories/order_repo.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/snackbars.dart';
 
@@ -46,6 +47,29 @@ class OrderController extends GetxController {
       SnackBars.showSuccess('تم انشاء الطلب');
     } else {
       SnackBars.showError('فشل انشاء الطلب');
+    }
+  }
+
+  Future<void> updateOrder(Order order) async {
+    getCartItemsMap();
+    loading.value = true;
+    bool orderUpdationStatus = await orderRepo.updateOrder(
+        order.id,
+        cartItems,
+        cartConroller.discountAmount != 0.0 ? 1 : 0,
+        cartConroller.discountAmount,
+        order.address,
+        order.lat,
+        order.long,
+        order.notes);
+    loading.value = false;
+    if (orderUpdationStatus == true) {
+      await ordersController.getOrders();
+      //await cartConroller.clearCart();
+      Get.back();
+      SnackBars.showSuccess('تم تعديل الطلب');
+    } else {
+      SnackBars.showError('فشل تعديل الطلب');
     }
   }
 }
