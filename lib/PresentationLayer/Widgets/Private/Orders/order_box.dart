@@ -7,9 +7,10 @@ import 'package:one_restaurant_delivery/DataAccesslayer/Models/order.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/Public/spacer_height.dart';
 
 class OrderBox extends StatelessWidget {
-  const OrderBox({super.key, required this.order});
+  const OrderBox({super.key, required this.order, this.editOnPressed});
 
   final Order order;
+  final Function()? editOnPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +62,7 @@ class OrderBox extends StatelessWidget {
           ),
           Expanded(
             child: IconButton(
-              onPressed: () {},
+              onPressed: editOnPressed,
               icon: const Icon(
                 FontAwesomeIcons.solidPenToSquare,
                 size: 25,
