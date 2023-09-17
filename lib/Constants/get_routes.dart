@@ -13,4 +13,5 @@ class AppRoutes {
   static const profileScreen = "/profileScreen";
   static const otpRegisterScreen = "/otpRegisterScreen";
   static const authPhoneCodeScreen = "/authPhoneCodeScreen";
+  static const categoriesScreen = "/categoriesScreen";
 }
