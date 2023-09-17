@@ -20,6 +20,8 @@ class CategoriesController extends GetxController {
   }
 
   void setSelectedCategoryId(categoryId) {
-    selectedCategoryId.value = categoryId;
+    if (categoryId != null) {
+      selectedCategoryId.value = categoryId;
+    }
   }
 }
