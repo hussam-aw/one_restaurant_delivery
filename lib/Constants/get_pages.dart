@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:one_restaurant_delivery/Constants/get_routes.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/complaints_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/auth/auth_phone_code_screen.dart';
+import 'package:one_restaurant_delivery/PresentationLayer/Public/categories_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/favorites_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Public/notifications_screen.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Private/orders_screen.dart';
@@ -72,5 +73,9 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: AppRoutes.profileScreen,
     page: () => ProfileScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.categoriesScreen,
+    page: () => CategoriesScreen(),
   ),
 ];
