@@ -53,7 +53,7 @@ class UserClient {
     }
 
     http.StreamedResponse response = await request.send();
-    print(await response.stream.bytesToString());
+    //print(await response.stream.bytesToString());
     if (response.statusCode == 201) {
       return await response.stream.bytesToString();
     } else {
