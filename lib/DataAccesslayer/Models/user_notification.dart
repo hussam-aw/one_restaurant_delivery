@@ -3,7 +3,7 @@ class UserNotification {
   String title;
   String subtitle;
   String type;
-  String data;
+  int data;
   String date;
   DateTime createdAt;
 

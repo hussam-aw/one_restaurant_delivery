@@ -12,7 +12,7 @@ class CartItem {
   });
 
   factory CartItem.fromJson(Map<String, dynamic> json) => CartItem(
-        mealId: json["product_id"],
+        mealId: json["id"],
         qty: json["quantity"],
         total: json['total_price'],
         specialOrder: json["special_order"] ?? "",
