@@ -44,7 +44,7 @@ class Order {
       lat: map['lat'] ?? 0.0,
       long: map['long'] ?? 0.0,
       details: getDetailsList(map['details']),
-      deliveryFee: map['delivery_fee'] ?? 0.0,
+      deliveryFee: 0.0,
       createdAt: map['created_at'] ?? "",
     );
   }

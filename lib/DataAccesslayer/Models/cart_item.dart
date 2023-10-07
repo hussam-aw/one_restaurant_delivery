@@ -19,7 +19,7 @@ class CartItem {
       );
 
   Map<String, dynamic> toJson() => {
-        "product_id": mealId,
+        "id": mealId,
         "quantity": qty,
         "total_price": total,
         "special_order": specialOrder,

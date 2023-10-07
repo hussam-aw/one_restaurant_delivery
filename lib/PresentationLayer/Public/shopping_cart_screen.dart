@@ -134,9 +134,7 @@ class ShoppingCartScreen extends StatelessWidget {
                                     text: order != null
                                         ? 'تعديل الطلب'
                                         : 'إرسال الطلب',
-                                    isLoading: order != null
-                                        ? orderController.loading.value
-                                        : false,
+                                    isLoading: orderController.loading.value,
                                   );
                                 }),
                               ),
