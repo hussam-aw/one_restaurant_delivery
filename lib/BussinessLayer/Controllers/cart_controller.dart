@@ -5,6 +5,7 @@ import 'package:one_restaurant_delivery/DataAccesslayer/Clients/box_client.dart'
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/cart_item.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/coupon.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/coupon_data.dart';
+import 'package:one_restaurant_delivery/DataAccesslayer/Models/meal.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Models/order.dart';
 import 'package:one_restaurant_delivery/DataAccesslayer/Repositories/cart_repo.dart';
 import 'package:one_restaurant_delivery/PresentationLayer/Widgets/snackbars.dart';
@@ -29,13 +30,14 @@ class CartController extends GetxController {
     calc();
   }
 
-  Future<void> addToCart(int mealId) async {
-    var cartItemIndex = getCartItemIndex(mealId);
+  Future<void> addToCart(Meal meal) async {
+    var cartItemIndex = getCartItemIndex(meal.id);
     if (cartItemIndex == null) {
       var cartItem = CartItem(
-          mealId: mealId,
+          mealId: meal.id,
           qty: itemQty,
-          total: mealsController.getMealFromId(mealId)!.price * itemQty,
+          price: meal.price,
+          total: meal.price * itemQty,
           specialOrder: specialOrderController.text);
       adding.value = true;
       cartItems.add(cartItem);
@@ -101,8 +103,7 @@ class CartController extends GetxController {
     totalAmount = 0.0;
     netAmount = 0.0;
     for (var item in cartItems) {
-      totalAmount +=
-          mealsController.getMealFromId(item.mealId)!.price * item.qty;
+      totalAmount += item.price * item.qty;
     }
     netAmount = totalAmount - discountAmount;
     update();
