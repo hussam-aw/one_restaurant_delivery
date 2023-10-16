@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "537334545257",
+    "project_id": "ord-app-7951e",
+    "storage_bucket": "ord-app-7951e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537334545257:android:ae6c7ba728efb67583dbf8",
+        "android_client_info": {
+          "package_name": "com.example.one_restaurant_delivery"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpttoS0s3U4-MsscFNDVvGVGbFqUhDC3M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
