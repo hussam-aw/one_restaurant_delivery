@@ -31,7 +31,7 @@ class User {
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
             : null,
-        address: json["address"],
+        address: json["address"] ?? '',
         phone: json["phone"],
       );
 
